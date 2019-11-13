@@ -1,0 +1,30 @@
+This file describes the different modules that we will be using.
+
+1. main
+  - Contains only the main function
+  - Main function calls menu module
+
+2. menu
+  - Displays the menu on the screen
+  - Calls the correct function based on the users input
+
+3. io_file
+  Contains functionality for:
+  - read_cell
+  - read_binary
+
+
+4. wificollector
+  All functionalities for wificollector including:
+  - wificollector_quit
+  - wificollector_collect
+  - wificollector_import
+  - wificollector_export
+  - wificollector_show_data_one_network
+  - wificollector_select_best
+  - wificollector_sort
+  - wificollector_delet_net
+
+5. structure_and_list 
+  - Deals with creating and managing dynamic memory for the data structure
+  - Retrieves and prints specific data from the dynamic data structure
