@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "./menu.h"
 
+#define DEBUG 1
+
+
 int main(int argc, char const *argv[])
 {
         display_menu();
@@ -19,8 +22,9 @@ void display_menu()
         printf("[6] wificollector_sort\n");
         printf("[7] wificollector_export\n");
         printf("[8] wificollector_import\n");
-        // if system = debug then add wifi collect all
-        // printf("[9] wificollector_collect_all\n");
+        #ifdef DEBUG
+          printf("[9] wificollector_collect_all\n");
+        #endif
         printf("\n");
         // TODO -- double check that this is how we are suppose to recieve the input
         printf("Option: (Enter 1-8 followed by CRTL-D or CRTL-D to quit) \n");
@@ -30,15 +34,24 @@ void display_menu()
 void handle_input()
 {
         int input;
+        // Q: is getc the right way to read from the scanner in this case
+        //    or should we should fgets or scanf?
+
         while ((input = getc(stdin)) != EOF)
         {
-                // Q: is getc the right way to read from the scanner in this case
-                //    or should we should fgets or scanf?
-
                 printf("INPUT: %c\n", input);
 
+                // Remove this before submitting the project
+                #ifdef DEBUG
+                  if (input == '9')
+                  {
+                    // wificollector_collect_all();
+                    continue;
+                  }
+                #endif
+
                 // check that the input is a number
-                if (input < '1' || input > '8')
+                if ((input < '1' || input > '8'))
                 {
                         printf("PLEASE ENTER AN INTEGER INPUT BETWEEN 1-8\n");
                         continue;
