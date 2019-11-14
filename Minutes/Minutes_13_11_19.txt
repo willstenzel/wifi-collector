@@ -1,0 +1,37 @@
+Team meeting held on 13/11/2019 at 13:00 in UC3M Library, Leganes
+
+Attending:
+  -William Stenzel
+  -Tomasz Tatara
+  -Michal Bernacki
+
+Moderator: Tomasz Tatara
+Minutes: Michal Bernacki
+
+Agenda:
+ 1.- Review together the general idea of the project
+ 2.- Create first version of modules documentation file
+ 3.- Assign first tasks
+
+================================================================================
+
+1.	Choosing a moderator for today's meeting - Tomasz
+2.	Discussing the functionality of each module
+3.	General discussion of the functionality of the application
+4.	In show_data functionality we decide to prompt “No data” whenever someone asks to show and there is no data yet
+5.	First task - creating menu
+6.	Second task - creating structure to store information about each access point
+7.	Third task - reading - collect functionality and collectAll
+8.	Second meeting - Friday 1PM
+9.	Choosing a text editor to work with. Our choice - Atom
+10.	Creating a module description file
+11. Setting up a GitHub repository with the Kanban table to coordinate the work
+
+
+================================================================================
+
+Action Items:
+
+*  Create menu -> William Stenzel
+*  Create structure to hold acces point information -> Tomasz Tatara
+*  Implement reading functionality -> Michal Bernacki
