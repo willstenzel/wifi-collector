@@ -9,7 +9,17 @@ int main(int argc, char const *argv[])
 {
   data.channel = 5;
   push(&data, sizeof(data));
-  data_read = get_head();
-  printf("%d", data_read->data->channel);
+  data.channel = 6;
+  push(&data, sizeof(data));
+  data.channel = 7;
+  push(&data, sizeof(data));
+  data.channel = 10;
+  push(&data, sizeof(data));
+  while((data_read = move_head())!=NULL)
+    printf("%d\n", data_read->data->channel);
+  wificollector_delete_net(10);
+    printf("\n");
+  while((data_read = move_head())!=NULL)
+    printf("%d\n", data_read->data->channel);
   return 0;
 }
