@@ -50,10 +50,10 @@ void handle_input()
                   }
                 #endif
 
-                // check that the input is a number
+                // check that the input is a number between 1 and 8
                 if ((input < '1' || input > '8'))
                 {
-                        printf("PLEASE ENTER AN INTEGER INPUT BETWEEN 1-8\n");
+                        printf("Please enter an integer input between 1-8\n");
                         continue;
                 }
                 // converty to char to integer
