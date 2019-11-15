@@ -87,4 +87,6 @@ void handle_input()
                         break;
                 }
         }
+
+        // free_all_data();
 }
