@@ -3,7 +3,7 @@
 
 #define DEBUG 1
 
-
+// Just used for testing, can be removed later
 int main(int argc, char const *argv[])
 {
         display_menu();
@@ -11,6 +11,18 @@ int main(int argc, char const *argv[])
         return 0;
 }
 
+/**Function********************************************************************
+
+  Synopsis           Displays the menu
+
+  Description        Displays the menu which allows the user to interact with
+                     the program
+
+  Parameters         None
+
+  SideEffects        None
+
+******************************************************************************/
 void display_menu()
 {
         printf("[2019] SUCEM S.L. Wifi Collector\n\n");
@@ -31,6 +43,18 @@ void display_menu()
 
 }
 
+
+/**Function********************************************************************
+
+  Synopsis           Handles User Input
+
+  Description        Read user input from stdin and delegate to the right function
+
+  Parameters         None
+
+  SideEffects        Mutates or prints data based on what the user inputs 
+
+******************************************************************************/
 void handle_input()
 {
         int input;

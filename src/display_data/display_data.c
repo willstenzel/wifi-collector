@@ -1,6 +1,16 @@
 #include <stdio.h>
 #include "structure_and_list.h"
 
+
+/**Function********************************************************************
+
+  Synopsis           Prints the mode enum value
+
+  Parameters         mode_vals mode -- The mode of the access point
+
+  SideEffects        None
+
+******************************************************************************/
 void print_mode(mode_vals mode)
 {
   printf("Mode:");
@@ -33,6 +43,16 @@ void print_mode(mode_vals mode)
   }
 }
 
+
+/**Function********************************************************************
+
+  Synopsis           Prints the mode enum value
+
+  Parameters         encryption_vals encrytpion_key -- Access point encrytpion, either on or off
+
+  SideEffects        None
+
+******************************************************************************/
 void print_encryption_key(encryption_vals encrytpion_key)
 {
   printf("Encryption key:");
@@ -45,6 +65,16 @@ void print_encryption_key(encryption_vals encrytpion_key)
       break;
 }
 
+
+/**Function********************************************************************
+
+  Synopsis           Displays a single access point to the console
+
+  Parameters         wifi_data* wifi -- A pointer to the wifi_data struct
+
+  SideEffects        None
+
+******************************************************************************/
 void display_single_access_point(wifi_data* wifi)
 {
   printf("Cell %d\n", wifi->cell_ind);
@@ -72,6 +102,17 @@ void display_single_access_point(wifi_data* wifi)
   printf("Signal level=%d\n", wifi->signal_level);
 }
 
+
+
+/**Function********************************************************************
+
+  Synopsis           Displays the data for all access points in a list
+
+  Parameters         None
+
+  SideEffects        None
+
+******************************************************************************/
 void display_all_access_points()
 {
   wifi_list *wifi_ptr;
