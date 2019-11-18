@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "structure_and_list.h"
 
-
 /**Function********************************************************************
 
   Synopsis           Prints the mode enum value
@@ -11,7 +10,7 @@
   SideEffects        None
 
 ******************************************************************************/
-void print_mode(mode_vals mode)
+static void print_mode(mode_vals mode)
 {
   printf("Mode:");
   switch (mode) {
@@ -53,7 +52,7 @@ void print_mode(mode_vals mode)
   SideEffects        None
 
 ******************************************************************************/
-void print_encryption_key(encryption_vals encrytpion_key)
+static void print_encryption_key(encryption_vals encrytpion_key)
 {
   printf("Encryption key:");
   switch (encrytpion_key) {
