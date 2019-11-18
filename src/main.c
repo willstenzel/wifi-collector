@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
+#include "menu.h"
+#include "display_data.h"
 
 wifi_data data;
 wifi_list *data_read;
@@ -21,5 +23,7 @@ int main(int argc, char const *argv[])
     printf("\n");
   while((data_read = move_head())!=NULL)
     printf("%d\n", data_read->data->channel);
+
+  display_all_access_points();
   return 0;
 }

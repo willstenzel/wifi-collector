@@ -1,15 +1,10 @@
 #include <stdio.h>
-#include "./menu.h"
+//#include "./menu.h"
 
 #define DEBUG 1
 
 // Just used for testing, can be removed later
-int main(int argc, char const *argv[])
-{
-        display_menu();
-        handle_input();
-        return 0;
-}
+
 
 /**Function********************************************************************
 
@@ -52,7 +47,7 @@ void display_menu()
 
   Parameters         None
 
-  SideEffects        Mutates or prints data based on what the user inputs 
+  SideEffects        Mutates or prints data based on what the user inputs
 
 ******************************************************************************/
 void handle_input()
