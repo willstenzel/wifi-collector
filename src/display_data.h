@@ -1,6 +1,12 @@
 #ifndef __DISPLAY_DATA_H
 #define __DISPLAY_DATA_H
 
+#include "structure_and_list.h"
+
+void display_single_access_point(wifi_data* wifi);
+void display_all_access_points();
+
+#endif
 
 /**CHeaderFile*****************************************************************
 
@@ -63,8 +69,3 @@
 /*---------------------------------------------------------------------------*/
 /* Function prototypes                                                       */
 /*---------------------------------------------------------------------------*/
-
-display_single_access_point(wifi_data* wifi);
-display_all_access_points();
-
-#endif

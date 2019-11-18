@@ -17,8 +17,8 @@ static void print_mode(mode_vals mode)
     case autos:
       printf("Autos\n");
       break;
-    case adh
-    break;oc:
+    case adhoc:
+    break;
       printf("Ad-Hoc\n");
       break;
     case managed:
@@ -62,6 +62,7 @@ static void print_encryption_key(encryption_vals encrytpion_key)
     case Off:
       printf("off\n");
       break;
+  }
 }
 
 
@@ -81,7 +82,7 @@ void display_single_access_point(wifi_data* wifi)
   printf("Address: ");
   for (int i=0; i<6; i++)
   {
-      printf("%02X", MAC[i]);
+      printf("%02X", wifi->MAC[i]);
       if (i<5)
       {
           printf(":");
@@ -95,10 +96,10 @@ void display_single_access_point(wifi_data* wifi)
   printf("ESSID:%s\n", wifi->ESSID);
   print_mode(wifi->mode);
   printf("Channel:%d\n", wifi->channel);
-  print_encryption_key(wifi->encrytpion_key));
+  print_encryption_key(wifi->encrytpion_key);
   printf("Quality=%d/%d\n", wifi->quality[0], wifi->quality[1]);
-  printf("Frequency:%f\n", wifi->frequency);
-  printf("Signal level=%d\n", wifi->signal_level);
+  //printf("Frequency:%f\n", wifi->frequency);
+  //printf("Signal level=%d\n", wifi->signal_level);
 }
 
 
@@ -117,6 +118,6 @@ void display_all_access_points()
   wifi_list *wifi_ptr;
   while((wifi_ptr = move_head()) != NULL)
   {
-    display_single_access_point(wifi_ptr);
+    display_single_access_point(wifi_ptr->data);
   }
 }
