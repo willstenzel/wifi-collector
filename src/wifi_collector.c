@@ -5,8 +5,8 @@
 
 void wificollector_select_best()
 {
-  wifi_data *best_network;
-  wifi_list *wifi_ptr;
+  wifi_data *best_network = NULL;
+  wifi_list *wifi_ptr = NULL;
 
   while((wifi_ptr = move_head()) != NULL)
   {
@@ -14,7 +14,7 @@ void wificollector_select_best()
     {
       best_network = wifi_ptr->data;
     }
-    else if (best_network->quality[0] > wifi_ptr->data->quality[0])
+    else if (best_network->quality[0] < wifi_ptr->data->quality[0])
       {
         best_network = wifi_ptr->data;
       }

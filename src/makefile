@@ -2,7 +2,7 @@
 # (właściwie wystarczy wpisać 'make' - all jest domyślny jako pierwszy cel)
 CC = gcc
 
-all: main.o structure_and_list.o menu.o display_data.o
+all: main.o structure_and_list.o menu.o display_data.o wifi_collector.o
 	$(CC) main.o structure_and_list.o menu.o wifi_collector.o display_data.o -o wifi_collector
 
 main.o: main.c main.h
