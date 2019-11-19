@@ -4,6 +4,7 @@
 #include "main.h"
 #include "menu.h"
 #include "display_data.h"
+#include "wifi_collector.h"
 
 wifi_data data;
 wifi_list *data_read;
@@ -25,5 +26,7 @@ int main(int argc, char const *argv[])
     printf("%d\n", data_read->data->channel);
 
   display_all_access_points();
+  printf("---------------------------------------\n");
+  // wificollector_select_best();
   return 0;
 }

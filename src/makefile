@@ -3,7 +3,7 @@
 CC = gcc
 
 all: main.o structure_and_list.o menu.o display_data.o
-	$(CC) main.o structure_and_list.o menu.o display_data.o -o wifi_collector
+	$(CC) main.o structure_and_list.o menu.o wifi_collector.o display_data.o -o wifi_collector
 
 main.o: main.c main.h
 	$(CC) main.c -c -o main.o
@@ -13,6 +13,9 @@ structure_and_list.o: structure_and_list.c structure_and_list.h
 
 menu.o: menu.c menu.h
 	$(CC) menu.c -c -o menu.o
+
+wifi_collector.o: wifi_collector.c wifi_collector.h
+	$(CC) wifi_collector.c -c -o wifi_collector.o
 
 display_data.o: display_data.c display_data.h
 	$(CC) display_data.c -c -o display_data.o
