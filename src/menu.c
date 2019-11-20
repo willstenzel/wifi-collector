@@ -1,21 +1,26 @@
 #include <stdio.h>
-//#include "./menu.h"
+#include "./menu.h"
 
 #define DEBUG 1
 
-// Just used for testing, can be removed later
-
+// TODO: Just used for testing, can be removed later
+int main(int argc, char const *argv[])
+{
+        display_menu();
+        handle_input();
+        return 0;
+}
 
 /**Function********************************************************************
 
-  Synopsis           Displays the menu
+   Synopsis           Displays the menu
 
-  Description        Displays the menu which allows the user to interact with
+   Description        Displays the menu which allows the user to interact with
                      the program
 
-  Parameters         None
+   Parameters         None
 
-  SideEffects        None
+   SideEffects        None
 
 ******************************************************************************/
 void display_menu()
@@ -30,24 +35,24 @@ void display_menu()
         printf("[7] wificollector_export\n");
         printf("[8] wificollector_import\n");
         #ifdef DEBUG
-          printf("[9] wificollector_collect_all\n");
+        printf("[9] wificollector_collect_all\n");
         #endif
         printf("\n");
         // TODO -- double check that this is how we are suppose to recieve the input
-        printf("Option: (Enter 1-8 followed by CRTL-D or CRTL-D to quit) \n");
+        printf("Option: \n");
 
 }
 
 
 /**Function********************************************************************
 
-  Synopsis           Handles User Input
+   Synopsis           Handles User Input
 
-  Description        Read user input from stdin and delegate to the right function
+   Description        Read user input from stdin and delegate to the right function
 
-  Parameters         None
+   Parameters         None
 
-  SideEffects        Mutates or prints data based on what the user inputs
+   SideEffects        Mutates or prints data based on what the user inputs
 
 ******************************************************************************/
 void handle_input()
@@ -58,19 +63,25 @@ void handle_input()
 
         while ((input = getc(stdin)) != EOF)
         {
-                printf("INPUT: %c\n", input);
-
                 // Remove this before submitting the project
                 #ifdef DEBUG
-                  if (input == '9')
-                  {
-                    // wificollector_collect_all();
-                    continue;
-                  }
+                if (input == '9')
+                {
+                        // wificollector_collect_all();
+                        continue;
+                }
                 #endif
 
+                // if the system reads a new line char it can ignore it
+                if (input == '\n') {
+                        printf("Read new line\n");
+                        continue;
+                }
+
+                printf("INPUT: %c\n", input);
+
                 // check that the input is a number between 1 and 8
-                if ((input < '1' || input > '8'))
+                if (input < '1' || input > '8')
                 {
                         printf("Please enter an integer input between 1-8\n");
                         continue;
