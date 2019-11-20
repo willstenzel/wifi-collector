@@ -76,6 +76,6 @@ int main(int argc, char const *argv[])
   printf("---------------------------------------\n");
   wificollector_select_best();
 
-  // handle_menu_input();
+  // handle_menu();
   return 0;
 }

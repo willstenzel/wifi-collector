@@ -2,8 +2,6 @@
 #include "./menu.h"
 #include "./wifi_collector.h"
 
-#define DEBUG 1
-
 /**CFile***********************************************************************
 
   FileName    menu.case
@@ -30,17 +28,6 @@
   PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.]
 
 ******************************************************************************/
-
-
-//
-// // TODO: Just used for testing, can be removed later
-// int main(int argc, char const *argv[])
-// {
-//         display_menu();
-//         handle_menu_input();
-//         return 0;
-// }
-
 
 /*---------------------------------------------------------------------------*/
 /* Definition of functions                                                   */
@@ -70,11 +57,7 @@ void display_menu()
         printf("[6] wificollector_sort\n");
         printf("[7] wificollector_export\n");
         printf("[8] wificollector_import\n");
-        #ifdef DEBUG
-        printf("[9] wificollector_collect_all\n");
-        #endif
         printf("\n");
-        // TODO -- double check that this is how we are suppose to recieve the input
         printf("Option: \n");
 
 }
@@ -82,7 +65,7 @@ void display_menu()
 
 
 
-/**Function handle_menu_input ******************************************************
+/**Function handle_menu ******************************************************
 
    Synopsis           Handles User Input for the menu
 
@@ -93,7 +76,7 @@ void display_menu()
    SideEffects        Mutates or prints data based on what the user inputs
 
 ******************************************************************************/
-void handle_menu_input()
+void handle_menu()
 {
         int input;
         int quit = 0;
@@ -102,15 +85,6 @@ void handle_menu_input()
 
         while (((input = getc(stdin)) != EOF) && (quit != 1))
         {
-                // Remove this before submitting the project
-                #ifdef DEBUG
-                if (input == '9')
-                {
-                        // wificollector_collect_all();
-                        continue;
-                }
-                #endif
-
                 // if the system reads a new line char it can ignore it
                 if (input == '\n') {
                         continue;

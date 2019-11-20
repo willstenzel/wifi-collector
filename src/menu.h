@@ -34,6 +34,6 @@
 /*---------------------------------------------------------------------------*/
 
 void display_menu();
-void handle_menu_input();
+void handle_menu();
 
 #endif
