@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "./menu.h"
+#include "./wifi_collector.h"
 
 #define DEBUG 1
 
@@ -95,8 +96,9 @@ void display_menu()
 void handle_menu_input()
 {
         int input;
+        int quit = 0;
 
-        while ((input = getc(stdin)) != EOF)
+        while (((input = getc(stdin)) != EOF) && (quit != 1))
         {
                 // Remove this before submitting the project
                 #ifdef DEBUG
@@ -109,10 +111,10 @@ void handle_menu_input()
 
                 // if the system reads a new line char it can ignore it
                 if (input == '\n') {
-                        printf("Read new line\n");
                         continue;
                 }
 
+                // TODO: Remove
                 printf("INPUT: %c\n", input);
 
                 // check that the input is a number between 1 and 8
@@ -125,10 +127,10 @@ void handle_menu_input()
                 switch (input - '0')
                 {
                 case 1:
-                        // wificollector_quit();
+                        quit = 1;  // Set quit to true to exit the while loop
                         break;
                 case 2:
-                        // wificollector_collect();
+                        wificollector_collect();
                         break;
                 case 3:
                         // wificollector_show_data_one_network();
