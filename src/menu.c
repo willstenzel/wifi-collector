@@ -32,14 +32,14 @@
 ******************************************************************************/
 
 
-
-// TODO: Just used for testing, can be removed later
-int main(int argc, char const *argv[])
-{
-        display_menu();
-        handle_menu_input();
-        return 0;
-}
+//
+// // TODO: Just used for testing, can be removed later
+// int main(int argc, char const *argv[])
+// {
+//         display_menu();
+//         handle_menu_input();
+//         return 0;
+// }
 
 
 /*---------------------------------------------------------------------------*/
@@ -98,6 +98,8 @@ void handle_menu_input()
         int input;
         int quit = 0;
 
+        display_menu();
+
         while (((input = getc(stdin)) != EOF) && (quit != 1))
         {
                 // Remove this before submitting the project
@@ -113,9 +115,6 @@ void handle_menu_input()
                 if (input == '\n') {
                         continue;
                 }
-
-                // TODO: Remove
-                printf("INPUT: %c\n", input);
 
                 // check that the input is a number between 1 and 8
                 if (input < '1' || input > '8')
@@ -153,6 +152,7 @@ void handle_menu_input()
                 default:
                         break;
                 }
+                display_menu();
         }
 
         // free_all_data();
