@@ -15,6 +15,8 @@
   Return value       pointer to newly created wifi_data object, which stores
                      read data
 
+  SideEffects        None
+
 ******************************************************************************/
 wifi_data* read_access_point(FILE *fp, char* line)
 {
@@ -93,11 +95,11 @@ wifi_data* read_access_point(FILE *fp, char* line)
   char* key = extract(line, "::", 3, 1);
   if (!strcmp(key, "on"))
   {
-    local_data->en_key = On;
+    local_data->encrytpion_key = On;
   }
   else
   {
-    local_data->en_key = Off;
+    local_data->encrytpion_key = Off;
   }
 
   //Quality
@@ -107,7 +109,7 @@ wifi_data* read_access_point(FILE *fp, char* line)
   for (int i = 0; i < 2; i++)
   {
     char* quality = extract(line, "/", 4, i);                                   //then from the second part
-    local_data->quality[i] = quality;                                           //extract first(x) and second(y) value x/y
+    local_data->quality[i] = (unsigned char)quality;                                           //extract first(x) and second(y) value x/y
   }
 
   //Read other two lines, but don't store them
@@ -124,6 +126,8 @@ wifi_data* read_access_point(FILE *fp, char* line)
   Parameters         string - line to be corrected
 
   Return value       pointer to corrected line
+
+  SideEffects        None
 
 ******************************************************************************/
 char* remove_new_line(char* string)
@@ -146,6 +150,8 @@ char* remove_new_line(char* string)
                      where the required string is stored
 
   Return value       pointer to the required string
+
+  SideEffects        None
 
 ******************************************************************************/
 char* extract(char* string, char* delim, int length, int position)
