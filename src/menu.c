@@ -1,11 +1,44 @@
 #include <stdio.h>
 #include "./menu.h"
+#include "./wifi_collector.h"
 
-#define DEBUG 1
+/**CFile***********************************************************************
 
+<<<<<<< HEAD
 // TODO: Just used for testing, can be removed later
+=======
+  FileName    menu.case
 
-/**Function********************************************************************
+  Synopsis    Displays the menu to the user and delegates to the right function
+
+  Copyright   [Copyright (c) 2012 Carlos III University of Madrid
+  All rights reserved.
+
+  Permission is hereby granted, without written agreement and without license
+  or royalty fees, to use, copy, modify, and distribute this software and its
+  documentation for any purpose, provided that the above copyright notice and
+  the following two paragraphs appear in all copies of this software.
+
+  IN NO EVENT SHALL THE CARLOS III UNIVERSITY OF MADRID BE LIABLE TO ANY PARTY
+  FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING
+  OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE CARLOS III
+  UNIVERSITY OF MADRID HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+  THE CARLOS III UNIVERSITY OF MADRID SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+  FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS ON AN
+  "AS IS" BASIS, AND CARLOS III UNIVERSITY OF MADRID HAS NO OBLIGATION TO
+  PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.]
+
+******************************************************************************/
+
+/*---------------------------------------------------------------------------*/
+/* Definition of functions                                                   */
+/*---------------------------------------------------------------------------*/
+>>>>>>> 76a1ac913edcb4d72726029c46107db02d03b5cc
+
+
+/**Function display_menu ******************************************************
 
    Synopsis           Displays the menu
 
@@ -28,19 +61,17 @@ void display_menu()
         printf("[6] wificollector_sort\n");
         printf("[7] wificollector_export\n");
         printf("[8] wificollector_import\n");
-        #ifdef DEBUG
-        printf("[9] wificollector_collect_all\n");
-        #endif
         printf("\n");
-        // TODO -- double check that this is how we are suppose to recieve the input
         printf("Option: \n");
 
 }
 
 
-/**Function********************************************************************
 
-   Synopsis           Handles User Input
+
+/**Function handle_menu ******************************************************
+
+   Synopsis           Handles User Input for the menu
 
    Description        Read user input from stdin and delegate to the right function
 
@@ -49,30 +80,19 @@ void display_menu()
    SideEffects        Mutates or prints data based on what the user inputs
 
 ******************************************************************************/
-void handle_input()
+void handle_menu()
 {
         int input;
-        // Q: is getc the right way to read from the scanner in this case
-        //    or should we should fgets or scanf?
+        int quit = 0;
 
-        while ((input = getc(stdin)) != EOF)
+        display_menu();
+
+        while (((input = getc(stdin)) != EOF) && (quit != 1))
         {
-                // Remove this before submitting the project
-                #ifdef DEBUG
-                if (input == '9')
-                {
-                        // wificollector_collect_all();
-                        continue;
-                }
-                #endif
-
                 // if the system reads a new line char it can ignore it
                 if (input == '\n') {
-                        printf("Read new line\n");
                         continue;
                 }
-
-                printf("INPUT: %c\n", input);
 
                 // check that the input is a number between 1 and 8
                 if (input < '1' || input > '8')
@@ -84,10 +104,10 @@ void handle_input()
                 switch (input - '0')
                 {
                 case 1:
-                        // wificollector_quit();
+                        quit = 1;  // Set quit to true to exit the while loop
                         break;
                 case 2:
-                        // wificollector_collect();
+                        wificollector_collect();
                         break;
                 case 3:
                         // wificollector_show_data_one_network();
@@ -110,6 +130,7 @@ void handle_input()
                 default:
                         break;
                 }
+                display_menu();
         }
 
         // free_all_data();
