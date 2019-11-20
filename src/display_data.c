@@ -1,7 +1,43 @@
 #include <stdio.h>
 #include "structure_and_list.h"
 
-/**Function********************************************************************
+/**CFile***********************************************************************
+
+  FileName    display_data.c
+
+  Synopsis    Displays the wifi data to to the user
+
+  Description Either shows a single cell's info or all info from the cells 
+
+  Copyright   [Copyright (c) 2012 Carlos III University of Madrid
+  All rights reserved.
+
+  Permission is hereby granted, without written agreement and without license
+  or royalty fees, to use, copy, modify, and distribute this software and its
+  documentation for any purpose, provided that the above copyright notice and
+  the following two paragraphs appear in all copies of this software.
+
+  IN NO EVENT SHALL THE CARLOS III UNIVERSITY OF MADRID BE LIABLE TO ANY PARTY
+  FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING
+  OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE CARLOS III
+  UNIVERSITY OF MADRID HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+  THE CARLOS III UNIVERSITY OF MADRID SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+  FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS ON AN
+  "AS IS" BASIS, AND CARLOS III UNIVERSITY OF MADRID HAS NO OBLIGATION TO
+  PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.]
+
+******************************************************************************/
+
+
+/*---------------------------------------------------------------------------*/
+/* Definition of functions                                                   */
+/*---------------------------------------------------------------------------*/
+
+
+
+/**Function print_mode ********************************************************
 
   Synopsis           Prints the mode enum value
 
@@ -43,7 +79,7 @@ static void print_mode(mode_vals mode)
 }
 
 
-/**Function********************************************************************
+/**Function print_encryption_key *********************************************
 
   Synopsis           Prints the mode enum value
 
@@ -66,7 +102,7 @@ static void print_encryption_key(encryption_vals encrytpion_key)
 }
 
 
-/**Function********************************************************************
+/**Function display_single_access_point ***************************************
 
   Synopsis           Displays a single access point to the console
 
@@ -98,13 +134,11 @@ void display_single_access_point(wifi_data* wifi)
   printf("Channel:%d\n", wifi->channel);
   print_encryption_key(wifi->encrytpion_key);
   printf("Quality=%d/%d\n", wifi->quality[0], wifi->quality[1]);
-  //printf("Frequency:%f\n", wifi->frequency);
-  //printf("Signal level=%d\n", wifi->signal_level);
 }
 
 
 
-/**Function********************************************************************
+/**Function display_all_access_points *****************************************
 
   Synopsis           Displays the data for all access points in a list
 
