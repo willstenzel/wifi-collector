@@ -6,7 +6,7 @@
 
 struct wifi_list * list_head;
 
-int list_init(void)
+void list_init(void)
 {
   list_head = NULL;
 }
@@ -18,19 +18,38 @@ int list_init(void)
 
   Parameters         data - pointer to wifi_data struct about to be stored
                      in list.
-                     data_size - size of the structure, call sizeof() to
+                     object_size - size of the structure, call sizeof() to
                      determine its size.
 
   SideEffects        always call delete_list() function before exiting program
 
 ******************************************************************************/
-void push(wifi_data * data, int data_size)
+void push(wifi_data * object, int object_size)
 {
   //create a link
   struct wifi_list *link = (struct wifi_list*) malloc(sizeof(struct wifi_list));
-  link->data  = malloc(data_size);
+  link->data  = (wifi_data* ) malloc(object_size);
   //copy data to the list
-  memcpy(link->data, data, data_size);
+  //memcpy(link->data, data, object_size);
+  link->data->cell_ind = object->cell_ind;
+  for (int i = 0; i < 6; i++)
+  {
+    link->data->MAC[i] = object->MAC[i];
+  }
+  //link->data->ESSID = malloc(strlen(object->ESSID)+1);
+  link->data->ESSID = object->ESSID;
+  //printf("%d\n", strlen(object->ESSID));
+  //printf("%s\n", object->ESSID);
+  //strcpy(link->data->ESSID, object->ESSID);
+  //link->data->ESSID = strdup(object->ESSID);
+  link->data->mode = object->mode;
+  link->data->channel = object->channel;
+  link->data->encrytpion_key = object->encrytpion_key;
+  for (int i = 0; i < 2; i++)
+  {
+    link->data->quality[i] = object->quality[i];
+  }
+  printf("%s\n", link->data->ESSID);
 
   //point it to old first node
   link->next = list_head;

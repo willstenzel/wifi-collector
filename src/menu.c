@@ -4,12 +4,6 @@
 #define DEBUG 1
 
 // TODO: Just used for testing, can be removed later
-int main(int argc, char const *argv[])
-{
-        display_menu();
-        handle_input();
-        return 0;
-}
 
 /**Function********************************************************************
 

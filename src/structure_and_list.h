@@ -23,8 +23,8 @@ typedef struct wifi_list
   struct wifi_list *next;
 }wifi_list;
 
-int list_init(void);
-void push(wifi_data * data, int data_size);
+void list_init(void);
+void push(wifi_data * object, int object_size);
 wifi_list * get_head(void);
 wifi_list * move_head(void);
 void delete_list(void);

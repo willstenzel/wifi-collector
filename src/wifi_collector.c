@@ -16,24 +16,25 @@
 void wificollector_collect()
 {
   int selected_cell = 0;
-  char cell_name[20];                                                    //buffer for the name of selected cell's file
+  char cell_name[50];                                                    //buffer for the name of selected cell's file
   char cell_number[10];                                                  //buffer for the string "Cell x" which indicates new access point in a cell
   FILE *fp;
-  char *buff = NULL;                                                     //buffer for sequentially read lines
+  char* buff = NULL;                                                     //buffer for sequentially read lines
   char another_access_point = 'N';
+  wifi_data* new_ap = NULL;
 
   do {
     printf("What cell do you want to collect? (1-21)\n");
-    scanf("%d", &selected_cell);
+    scanf(" %d", &selected_cell);
 
     while (selected_cell < 1 || selected_cell > 21)
     {
       printf("Wrong number!\n");
       printf("What cell do you want to collect? (1-21)\n");
-      scanf("%d", &selected_cell);
+      scanf(" %d", &selected_cell);
     }
 
-    sprintf(cell_name, "info_cell_%d.txt", selected_cell);
+    sprintf(cell_name, "../cells/info_cell_%d.txt", selected_cell);
     sprintf(cell_number, "Cell %d", selected_cell);
 
     fp = fopen(cell_name, "r");
@@ -45,19 +46,24 @@ void wificollector_collect()
     else
     {
       size_t bytes_number = 0;
-      while (getline(&buff, &bytes_number, fp) != -1)                      //If everything is fine, read the first line
+      while (getline(&buff, &bytes_number, fp) >= 0)                      //If everything is fine, read the first line
       {
         if (strcmp(remove_new_line(buff), cell_number) == 0)               //If the line == "Cell x", where x = [1,21]
         {
-          wifi_data* new_ap = read_access_point(fp, buff);                 //read new access point
-          push(new_ap, sizeof(new_ap));                                    //and push it to the list
+          new_ap = read_access_point(fp, buff, bytes_number);   //read new access point
+          printf("%s\n", new_ap->ESSID);
+          push(new_ap, sizeof(new_ap));                                  //and push it to the list
+          free(new_ap);
         }
       }
     }
+    free(buff);
+    buff = NULL;
     fclose(fp);
     printf("Do you want to add another access point? [y/N]\n");
     scanf(" %c", &another_access_point);
   } while(another_access_point == 'y');
+  //return new_ap;
 }
 
 /**Function wificollector_select_best******************************************

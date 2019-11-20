@@ -18,22 +18,21 @@
   SideEffects        None
 
 ******************************************************************************/
-wifi_data* read_access_point(FILE *fp, char* line)
+wifi_data* read_access_point(FILE *fp, char* line, size_t bytes_number)
 {
-  size_t bytes_number = 0;                                                      //bytes read by getline function
-
   wifi_data* local_data = (struct wifi_data*) malloc(sizeof(struct wifi_data)); //local wifi_data object
 
   //Cell identifier
-  local_data->cell_ind = atoi(&line[5]);
+  char* ind = extract(line, " ", 3, 1);
+  local_data->cell_ind = atoi(ind);
 
   //MAC
-  int bytes_read = getline(&line, &bytes_number, fp);
+  ssize_t bytes_read = getline(&line, &bytes_number, fp);
 
-  line = extract(line, " ", 3, 1);                                              //first split read line into two parts
+  char* hext = extract(line, " ", 3, 1);                                              //first split read line into two parts
   for (int i = 0; i < 6; i++)
   {
-    char* hex = extract(line, "::", 7, i);                                      //then from the second part
+    char* hex = extract(hext, "::", 7, i);                                      //then from the second part
     int num_hex = (int)strtol(hex, NULL, 16);                                   //extract consecutive hex values
     local_data->MAC[i] = num_hex;
   }
@@ -41,9 +40,14 @@ wifi_data* read_access_point(FILE *fp, char* line)
   //ESSID
   bytes_read = getline(&line, &bytes_number, fp);
 
-  char* essid = (char* )malloc(sizeof(char)*(bytes_read-8));                    //allocate memory only for essid name
-  essid = extract(line, "\"", 3, 1);                                            // -8 -> length of the rest of read line: ESSID:""
-  local_data->ESSID = essid;
+  char* essid = extract(line, "\"", 4, 1);
+  //local_data->ESSID = essid;
+  local_data->ESSID = malloc(strlen(essid)+1);
+  strcpy(local_data->ESSID, essid);
+  printf("%s\n", essid);
+  printf("%s\n", local_data->ESSID);
+  //free(local_data->ESSID);
+  //printf("%s\n", local_data->ESSID);
 
   //Mode
   bytes_read = getline(&line, &bytes_number, fp);
@@ -105,17 +109,17 @@ wifi_data* read_access_point(FILE *fp, char* line)
   //Quality
   bytes_read = getline(&line, &bytes_number, fp);                               //first split read line into two parts
 
-  line = extract(line, "=", 4, 1);
+  char* qualityt = extract(line, "=", 4, 1);
   for (int i = 0; i < 2; i++)
   {
-    char* quality = extract(line, "/", 4, i);                                   //then from the second part
-    local_data->quality[i] = (unsigned char)quality;                                           //extract first(x) and second(y) value x/y
+    char* quality = extract(qualityt, "/", 4, i);                                   //then from the second part
+    local_data->quality[i] = (short int)atoi(quality);                                //extract first(x) and second(y) value x/y
   }
 
   //Read other two lines, but don't store them
   bytes_read = getline(&line, &bytes_number, fp);                               //It's neccessary to read those two lines
   bytes_read = getline(&line, &bytes_number, fp);                               //so we read correct values in the next loop iteration
-
+  line = NULL;
   return local_data;
 }
 
