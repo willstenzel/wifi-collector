@@ -31,19 +31,20 @@
 ******************************************************************************/
 
 
-/*---------------------------------------------------------------------------*/
-/* Definition of functions                                                   */
-/*---------------------------------------------------------------------------*/
-
-
 
 // TODO: Just used for testing, can be removed later
 int main(int argc, char const *argv[])
 {
         display_menu();
-        handle_input();
+        handle_menu_input();
         return 0;
 }
+
+
+/*---------------------------------------------------------------------------*/
+/* Definition of functions                                                   */
+/*---------------------------------------------------------------------------*/
+
 
 /**Function display_menu ******************************************************
 
@@ -78,9 +79,11 @@ void display_menu()
 }
 
 
-/**Function handle_input ******************************************************
 
-   Synopsis           Handles User Input
+
+/**Function handle_menu_input ******************************************************
+
+   Synopsis           Handles User Input for the menu
 
    Description        Read user input from stdin and delegate to the right function
 
@@ -89,11 +92,9 @@ void display_menu()
    SideEffects        Mutates or prints data based on what the user inputs
 
 ******************************************************************************/
-void handle_input()
+void handle_menu_input()
 {
         int input;
-        // Q: is getc the right way to read from the scanner in this case
-        //    or should we should fgets or scanf?
 
         while ((input = getc(stdin)) != EOF)
         {
