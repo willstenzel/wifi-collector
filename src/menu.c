@@ -4,9 +4,6 @@
 
 /**CFile***********************************************************************
 
-<<<<<<< HEAD
-// TODO: Just used for testing, can be removed later
-=======
   FileName    menu.case
 
   Synopsis    Displays the menu to the user and delegates to the right function
@@ -113,7 +110,7 @@ void handle_menu()
                         // wificollector_show_data_one_network();
                         break;
                 case 4:
-                        // wificollector_select_best();
+                        wificollector_select_best();
                         break;
                 case 5:
                         // wificollector_delete_net();
