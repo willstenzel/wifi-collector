@@ -107,7 +107,7 @@ void handle_menu()
                         wificollector_collect();
                         break;
                 case 3:
-                        // wificollector_show_data_one_network();
+                        wificollector_show_data_one_network();
                         break;
                 case 4:
                         wificollector_select_best();

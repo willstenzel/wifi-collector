@@ -100,11 +100,53 @@ void wificollector_collect()
   //return new_ap;
 }
 
-/**Function wificollector_select_best******************************************
+/**Function wificollector_show_data_one_network *******************************
 
   Synopsis
 
   SideEffects
+
+******************************************************************************/
+void wificollector_show_data_one_network()
+{
+    printf("Indicate the ESSID (use “”): \n");
+    // scanf or get line for the next line
+    char *buffer;
+    size_t buff_max = 80;
+    size_t bytes_read;
+
+    buffer = (char *)malloc(buff_max * sizeof(char));
+
+    bytes_read = getline(&buffer, &buff_max, stdin);
+
+    char line[buff_max];
+
+    // strcmp(remove_new_line(buffer), line);
+
+    char* essid = extract(buffer, "\"", 3, 0);
+
+    printf("ESSID --> %s\n", essid);  // TODO: Remove after testing
+
+    // loop throught all the access points
+    wifi_list *wifi_ptr = NULL;
+
+    while((wifi_ptr = move_head()) != NULL)
+    {
+      if (strcmp(essid, wifi_ptr->data->ESSID) == 0)
+      {
+        // print each access point that has a matching ESSID
+        display_single_access_point(wifi_ptr->data);
+      }
+    }
+}
+
+
+/**Function wificollector_select_best******************************************
+
+  Synopsis     Selects and displays data for the access point with the largest
+               signal strength
+
+  SideEffects  None
 
 ******************************************************************************/
 void wificollector_select_best()
