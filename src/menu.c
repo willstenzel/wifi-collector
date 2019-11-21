@@ -32,7 +32,6 @@
 /*---------------------------------------------------------------------------*/
 /* Definition of functions                                                   */
 /*---------------------------------------------------------------------------*/
->>>>>>> 76a1ac913edcb4d72726029c46107db02d03b5cc
 
 
 /**Function display_menu ******************************************************
@@ -101,6 +100,7 @@ void handle_menu()
                 switch (input - '0')
                 {
                 case 1:
+                        printf("PROGRAM QUIT\n");
                         quit = 1;  // Set quit to true to exit the while loop
                         break;
                 case 2:

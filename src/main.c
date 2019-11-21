@@ -76,9 +76,10 @@ int main(int argc, char const *argv[])
   // printf("---------------------------------------\n");
   // wificollector_select_best();
   //wifi_data* x = wificollector_collect();
-  wificollector_collect();
+  // wificollector_collect();
   //display_single_access_point(x);
-  display_all_access_points();
+
+  handle_menu();
 
   return 0;
 }
