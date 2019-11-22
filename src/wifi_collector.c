@@ -47,15 +47,18 @@
                      - wifi_list
 
 ******************************************************************************/
+
 void wificollector_collect()
 {
   int selected_cell = 0;
   char cell_name[50];                                                    //buffer for the name of selected cell's file
   char cell_number[10];                                                  //buffer for the string "Cell x" which indicates new access point in a cell
-  FILE *fp;
+  FILE *fp = NULL;
   char* buff = NULL;                                                     //buffer for sequentially read lines
   char another_access_point = 'N';
   wifi_data* new_ap = NULL;
+  size_t bytes_number = 0;
+
 
   do {
     printf("What cell do you want to collect? (1-21)\n");
@@ -79,7 +82,6 @@ void wificollector_collect()
     }
     else
     {
-      size_t bytes_number = 0;
       while (getline(&buff, &bytes_number, fp) >= 0)                      //If everything is fine, read the first line
       {
         if (strcmp(remove_new_line(buff), cell_number) == 0)               //If the line == "Cell x", where x = [1,21]
@@ -137,8 +139,9 @@ void wificollector_show_data_one_network()
     }
 
     char* essid = extract(buffer, "\"", 3, 0);
-
-    printf("ESSID --> %s\n", essid);  // TODO: Remove after testing
+#ifdef DEBUG
+printf("ESSID --> %s\n", essid);  // TODO: Remove after testing
+#endif
 
     // loop throught all the access points
     wifi_list *wifi_ptr = NULL;
@@ -181,4 +184,48 @@ void wificollector_select_best()
       }
   }
   display_single_access_point(best_network);
+}
+
+/**Function wificollector_delete_net******************************************
+
+  Synopsis     deletes all data concerning one net with correct ESSID
+
+  SideEffects  None
+
+******************************************************************************/
+void wificollector_delete_net()
+{
+  wifi_list *current, *previous = list_head;
+  printf("Indicate the ESSID (use “”): \n");
+
+  // scanf or get line for the next line
+  char *buffer = NULL;
+  size_t buff_max = 0;
+  ssize_t bytes_read = 0;
+
+  bytes_read = getline(&buffer, &buff_max, stdin);
+  if(bytes_read == -1)
+  {
+    printf("Cannot allocate memory\n");
+  }
+  char* essid = extract(buffer, "\"", 3, 0);
+
+#ifdef DEBUG
+printf("ESSID --> %s\n", essid);  // TODO: Remove after testing
+#endif
+
+  while((current = move_head()) != NULL)
+  {
+    if (strcmp(essid, current->data->ESSID) == 0)
+    {
+      if(current == list_head)              //if it is first element
+        list_head = current->next;
+      else
+        previous->next = current->next;
+      free(current->data->ESSID);
+      free(current->data);
+      free(current);
+    }
+    previous = current;
+  }
 }

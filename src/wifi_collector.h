@@ -44,5 +44,6 @@
 void wificollector_collect();
 void wificollector_show_data_one_network();
 void wificollector_select_best();
+void wificollector_delete_net();
 
 #endif

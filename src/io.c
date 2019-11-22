@@ -23,10 +23,16 @@ wifi_data* read_access_point(FILE *fp, char* line, size_t bytes_number)
   wifi_data* local_data = (struct wifi_data*) malloc(sizeof(struct wifi_data)); //local wifi_data object
 
   //Cell identifier
+#ifdef DEBUG
+printf("atoing cell\n");
+#endif
   char* ind = extract(line, " ", 3, 1);
   local_data->cell_ind = atoi(ind);
 
   //MAC
+#ifdef DEBUG
+printf("getting MAC\n");
+#endif
   ssize_t bytes_read = getline(&line, &bytes_number, fp);
 
   char* hext = extract(line, " ", 3, 1);                                              //first split read line into two parts
@@ -38,6 +44,9 @@ wifi_data* read_access_point(FILE *fp, char* line, size_t bytes_number)
   }
 
   //ESSID
+#ifdef DEBUG
+printf("getting ESSID\n");
+#endif
   bytes_read = getline(&line, &bytes_number, fp);
 
   char* essid = extract(line, "\"", 4, 1);
@@ -50,6 +59,9 @@ wifi_data* read_access_point(FILE *fp, char* line, size_t bytes_number)
   //printf("%s\n", local_data->ESSID);
 
   //Mode
+#ifdef DEBUG
+printf("getting mode\n");
+#endif
   bytes_read = getline(&line, &bytes_number, fp);
 
   char* mode_name = extract(line, "::", 3, 1);
@@ -88,12 +100,18 @@ wifi_data* read_access_point(FILE *fp, char* line, size_t bytes_number)
   }
 
   //Channel
+#ifdef DEBUG
+printf("getting channel\n");
+#endif
   bytes_read = getline(&line, &bytes_number, fp);
 
   char* channel = extract(line, "::", 3, 1);
   local_data->channel = atoi(channel);
 
   //Encryption key
+#ifdef DEBUG
+printf("getting key\n");
+#endif
   bytes_read = getline(&line, &bytes_number, fp);
 
   char* key = extract(line, "::", 3, 1);
@@ -107,6 +125,9 @@ wifi_data* read_access_point(FILE *fp, char* line, size_t bytes_number)
   }
 
   //Quality
+#ifdef DEBUG
+printf("getting quality\n");
+#endif
   bytes_read = getline(&line, &bytes_number, fp);                               //first split read line into two parts
 
   char* qualityt = extract(line, "=", 4, 1);
@@ -118,8 +139,11 @@ wifi_data* read_access_point(FILE *fp, char* line, size_t bytes_number)
 
   //Read other two lines, but don't store them
   bytes_read = getline(&line, &bytes_number, fp);                               //It's neccessary to read those two lines
-  bytes_read = getline(&line, &bytes_number, fp);                               //so we read correct values in the next loop iteration
-  line = NULL;
+  bytes_read = getline(&line, &bytes_number, fp);
+#ifdef DEBUG
+printf("freeing line\n");
+#endif                           //so we read correct values in the next loop iteration
+  //free(line);
   return local_data;
 }
 
@@ -136,7 +160,10 @@ wifi_data* read_access_point(FILE *fp, char* line, size_t bytes_number)
 ******************************************************************************/
 char* remove_new_line(char* string)
 {
-  string[strcspn(string, "\n")] = 0;
+  char key[] = "\n";
+  size_t position = strcspn(string, key);
+  if (position != strlen(string))
+    string[position] = 0;
   return string;
 }
 

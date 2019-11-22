@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "./menu.h"
 #include "./wifi_collector.h"
+#include "structure_and_list.h"
 
 /**CFile***********************************************************************
 
@@ -104,6 +105,7 @@ void handle_menu()
                 {
                 case 1:
                         printf("PROGRAM QUIT\n");
+                        delete_list();
                         quit = 1;  // Set quit to true to exit the while loop
                         break;
                 case 2:
@@ -116,7 +118,7 @@ void handle_menu()
                         wificollector_select_best();
                         break;
                 case 5:
-                        // wificollector_delete_net();
+                        wificollector_delete_net();
                         break;
                 case 6:
                         // wificollector_sort();
