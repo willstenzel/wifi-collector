@@ -124,15 +124,24 @@ void wificollector_show_data_one_network()
     char c;
     int index = 0;
 
-    while ((c = getc(stdin))) {
-       if (index == 0 && c == '\n') {  // Clear the buffer of any newline characters
+    while ((c = getc(stdin)))
+    {
+       if (index == 0 && c == '\n')
+       {  // Clear the buffer of any newline characters
          continue;
-       } else if (c == EOF) {  // Exit the function if the user types cntrl-d
-         // return;
        }
-       else if (index != 0 && c == '\n'){  // The end of the user input
+       else if (c == EOF)// Exit the function if the user types cntrl-d
+       {
+         printf("exiting...");
+         free(buffer);
+         delete_list();
+         exit(0);
+       }
+       else if (index != 0 && c == '\n') // The end of the user input
+       {
          break;
-       } else {  // Add the charater to the buffer
+       } else // Add the charater to the buffer
+       {
          buffer[index] = c;
          index = index + 1;
        }
@@ -198,15 +207,37 @@ void wificollector_delete_net()
   wifi_list *current, *previous = list_head;
   printf("Indicate the ESSID (use “”): \n");
 
-  // scanf or get line for the next line
-  char *buffer = NULL;
-  size_t buff_max = 0;
-  ssize_t bytes_read = 0;
+  char c;
+  int index = 0;
 
-  bytes_read = getline(&buffer, &buff_max, stdin);
-  if(bytes_read == -1)
+  char *buffer;
+  size_t buff_max = 80;
+  size_t bytes_read;
+
+  buffer = (char *)malloc(buff_max * sizeof(char));
+
+
+  while ((c = getc(stdin)))
   {
-    printf("Cannot allocate memory\n");
+     if (index == 0 && c == '\n')
+     {  // Clear the buffer of any newline characters
+       continue;
+     }
+     else if (c == EOF)// Exit the function if the user types cntrl-d
+     {
+       printf("exiting...");
+       free(buffer);
+       delete_list();
+       exit(0);
+     }
+     else if (index != 0 && c == '\n') // The end of the user input
+     {
+       break;
+     } else // Add the charater to the buffer
+     {
+       buffer[index] = c;
+       index = index + 1;
+     }
   }
   char* essid = extract(buffer, "\"", 3, 0);
 

@@ -119,6 +119,9 @@ wifi_list *move_head(void)
   static wifi_list *local_head = NULL;
   static wifi_list *return_head = NULL;
 
+  if(list_head == NULL)
+    return NULL;
+
   if(local_head == NULL)  //if it is first object or prievous one was last
   {
     local_head = list_head;
@@ -144,8 +147,11 @@ void delete_list(void)
   wifi_list * pointer;
   while((pointer = move_head())!=NULL)
   {
-    free(pointer->data->ESSID);
-    free(pointer->data);
-    free(pointer);
+    if(pointer != NULL)
+    {
+      free(pointer->data->ESSID);
+      free(pointer->data);
+      free(pointer);
+    }
   }
 }

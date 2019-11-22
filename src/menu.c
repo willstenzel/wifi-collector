@@ -87,13 +87,18 @@ void handle_menu()
         while ((input = getc(stdin)) && quit != 1)
         {
 
-                printf("input: %c\n", input);
+                //printf("input: %c\n", input);
 
                 // if the system reads a new line or EOF char it can ignore it
-                if (input == '\n') {
-                        continue;
+                if (input == '\n')
+                {
+                    continue;
                 }
-
+                if (input == EOF)
+                {
+                    printf("exiting...\n");
+                    delete_list();
+                }
                 // check that the input is a number between 1 and 8
                 if (input < '1' || input > '8')
                 {
