@@ -109,6 +109,7 @@ void wificollector_collect()
 ******************************************************************************/
 void wificollector_show_data_one_network()
 {
+
     printf("Indicate the ESSID (use “”): \n");
     // scanf or get line for the next line
     char *buffer;
@@ -116,12 +117,24 @@ void wificollector_show_data_one_network()
     size_t bytes_read;
 
     buffer = (char *)malloc(buff_max * sizeof(char));
+    // TODO: don't forget to free the data
 
-    bytes_read = getline(&buffer, &buff_max, stdin);
+    char c;
+    int index = 0;
 
-    char line[buff_max];
-
-    // strcmp(remove_new_line(buffer), line);
+    while ((c = getc(stdin))) {
+       if (index == 0 && c == '\n') {  // Clear the buffer of any newline characters
+         continue;
+       } else if (c == EOF) {  // Exit the function if the user types cntrl-d
+         // return;
+       }
+       else if (index != 0 && c == '\n'){  // The end of the user input
+         break;
+       } else {  // Add the charater to the buffer
+         buffer[index] = c;
+         index = index + 1;
+       }
+    }
 
     char* essid = extract(buffer, "\"", 3, 0);
 
@@ -138,6 +151,8 @@ void wificollector_show_data_one_network()
         display_single_access_point(wifi_ptr->data);
       }
     }
+
+    free(buffer);
 }
 
 

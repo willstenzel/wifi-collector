@@ -78,14 +78,17 @@ void display_menu()
 ******************************************************************************/
 void handle_menu()
 {
-        int input;
+        char input;
         int quit = 0;
 
         display_menu();
 
-        while (((input = getc(stdin)) != EOF) && (quit != 1))
+        while ((input = getc(stdin)) && quit != 1)
         {
-                // if the system reads a new line char it can ignore it
+
+                printf("input: %c\n", input);
+
+                // if the system reads a new line or EOF char it can ignore it
                 if (input == '\n') {
                         continue;
                 }
