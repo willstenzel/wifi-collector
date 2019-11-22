@@ -1,6 +1,8 @@
 #ifndef __STRUCTURE_AND_LIST_H
 #define __STRUCTURE_AND_LIST_H
 
+#define DEBUG
+
 typedef enum mode_vals {autos, adhoc, managed, master, repeater,
 secondary, monitor, unknown}mode_vals;
 typedef enum encryption_vals {On, Off}encryption_vals;
@@ -23,12 +25,13 @@ typedef struct wifi_list
   struct wifi_list *next;
 }wifi_list;
 
+struct wifi_list * list_head;
+
 void list_init(void);
 void push(wifi_data * object, int object_size);
 wifi_list * get_head(void);
 wifi_list * move_head(void);
 void delete_list(void);
-void wificollector_delete_net(int channel);
 
 #endif
 
