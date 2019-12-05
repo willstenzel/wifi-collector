@@ -26,8 +26,7 @@ wifi_data* read_access_point(FILE *fp, char* line, size_t bytes_number)
 #ifdef DEBUG
 printf("atoing cell\n");
 #endif
-  char* ind = extract(line, " ", 3, 1);
-  local_data->cell_ind = atoi(ind);
+  local_data->cell_ind = atoi(&line[5]);
 
   //MAC
 #ifdef DEBUG
@@ -35,11 +34,9 @@ printf("getting MAC\n");
 #endif
   ssize_t bytes_read = getline(&line, &bytes_number, fp);
 
-  char* hext = extract(line, " ", 3, 1);                                              //first split read line into two parts
   for (int i = 0; i < 6; i++)
   {
-    char* hex = extract(hext, "::", 7, i);                                      //then from the second part
-    int num_hex = (int)strtol(hex, NULL, 16);                                   //extract consecutive hex values
+    int num_hex = (int)strtol(&line[i*2+i+9], NULL, 16);                                    //extract consecutive hex values
     local_data->MAC[i] = num_hex;
   }
 
@@ -47,16 +44,14 @@ printf("getting MAC\n");
 #ifdef DEBUG
 printf("getting ESSID\n");
 #endif
-  bytes_read = getline(&line, &bytes_number, fp);
 
-  char* essid = extract(line, "\"", 4, 1);
-  //local_data->ESSID = essid;
-  local_data->ESSID = malloc(strlen(essid)+1);
-  strcpy(local_data->ESSID, essid);
-  printf("%s\n", essid);
-  printf("%s\n", local_data->ESSID);
-  //free(local_data->ESSID);
-  //printf("%s\n", local_data->ESSID);
+  bytes_read = getline(&line, &bytes_number, fp);
+  int len = strlen(line) - 8;
+  line[len + 6] = '\0';
+  local_data->ESSID = malloc(len);
+  string_copy(local_data->ESSID, &line[7], len);
+  // printf("%s\n", &line[7]);
+  // printf("%s\n", local_data->ESSID);
 
   //Mode
 #ifdef DEBUG
@@ -64,33 +59,31 @@ printf("getting mode\n");
 #endif
   bytes_read = getline(&line, &bytes_number, fp);
 
-  char* mode_name = extract(line, "::", 3, 1);
-
-  if (!strcmp(mode_name, "Auto"))
+  if (!strcmp(&line[5], "Auto\n"))
   {
     local_data->mode = autos;
   }
-  else if (!strcmp(mode_name, "Ad-Hoc"))
+  else if (!strcmp(&line[5], "Ad-Hoc\n"))
   {
     local_data->mode = adhoc;
   }
-  else if (!strcmp(mode_name, "Managed"))
+  else if (!strcmp(&line[5], "Managed\n"))
   {
     local_data->mode = managed;
   }
-  else if (!strcmp(mode_name, "Master"))
+  else if (!strcmp(&line[5], "Master\n"))
   {
     local_data->mode = master;
   }
-  else if (!strcmp(mode_name, "Repeater"))
+  else if (!strcmp(&line[5], "Repeater\n"))
   {
     local_data->mode = repeater;
   }
-  else if (!strcmp(mode_name, "Secondary"))
+  else if (!strcmp(&line[5], "Secondary\n"))
   {
     local_data->mode = secondary;
   }
-  else if (!strcmp(mode_name, "Monitor"))
+  else if (!strcmp(&line[5], "Monitor\n"))
   {
     local_data->mode = monitor;
   }
@@ -104,9 +97,7 @@ printf("getting mode\n");
 printf("getting channel\n");
 #endif
   bytes_read = getline(&line, &bytes_number, fp);
-
-  char* channel = extract(line, "::", 3, 1);
-  local_data->channel = atoi(channel);
+  local_data->channel = atoi(&line[8]);
 
   //Encryption key
 #ifdef DEBUG
@@ -114,8 +105,7 @@ printf("getting key\n");
 #endif
   bytes_read = getline(&line, &bytes_number, fp);
 
-  char* key = extract(line, "::", 3, 1);
-  if (!strcmp(key, "on"))
+  if (!strcmp(&line[15], "on"))
   {
     local_data->encrytpion_key = On;
   }
@@ -129,13 +119,10 @@ printf("getting key\n");
 printf("getting quality\n");
 #endif
   bytes_read = getline(&line, &bytes_number, fp);                               //first split read line into two parts
+  line[10] = '\0';
+  local_data->quality[0] = (short int)atoi(&line[8]);
+  local_data->quality[1] = (short int)atoi(&line[11]);
 
-  char* qualityt = extract(line, "=", 4, 1);
-  for (int i = 0; i < 2; i++)
-  {
-    char* quality = extract(qualityt, "/", 4, i);                                   //then from the second part
-    local_data->quality[i] = (short int)atoi(quality);                                //extract first(x) and second(y) value x/y
-  }
 
   //Read other two lines, but don't store them
   bytes_read = getline(&line, &bytes_number, fp);                               //It's neccessary to read those two lines
@@ -197,4 +184,11 @@ char* extract(char* string, char* delim, int length, int position)
   }
   words[position] = remove_new_line(words[position]);                           //remove \n from string to be returned, if present
   return words[position];
+}
+void string_copy(char* destination, char* source, char char_nbr)
+{
+  for(int i = 0; i < char_nbr; i ++)
+  {
+    destination[i] = source[i];
+  }
 }

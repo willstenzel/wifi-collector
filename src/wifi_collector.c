@@ -84,7 +84,8 @@ void wificollector_collect()
     {
       while (getline(&buff, &bytes_number, fp) >= 0)                      //If everything is fine, read the first line
       {
-        if (strcmp(remove_new_line(buff), cell_number) == 0)               //If the line == "Cell x", where x = [1,21]
+        buff[strlen(buff)-1] = '\0';
+        if (strcmp(buff, cell_number) == 0)               //If the line == "Cell x", where x = [1,21]
         {
           new_ap = read_access_point(fp, buff, bytes_number);   //read new access point
           printf("%s\n", new_ap->ESSID);
