@@ -46,11 +46,12 @@ printf("getting ESSID\n");
 #endif
 
   bytes_read = getline(&line, &bytes_number, fp);
-  int len = strlen(line) - 8;
+  int len = strlen(line);
+  printf("len: %d", len);
+  len -=  8;
   line[len + 6] = '\0';
-  local_data->ESSID = malloc(len);
   string_copy(local_data->ESSID, &line[7], len);
-  // printf("%s\n", &line[7]);
+  printf("%s\n", &line[7]);
   // printf("%s\n", local_data->ESSID);
 
   //Mode
@@ -127,9 +128,7 @@ printf("getting quality\n");
   //Read other two lines, but don't store them
   bytes_read = getline(&line, &bytes_number, fp);                               //It's neccessary to read those two lines
   bytes_read = getline(&line, &bytes_number, fp);
-#ifdef DEBUG
-printf("freeing line\n");
-#endif                           //so we read correct values in the next loop iteration
+                         //so we read correct values in the next loop iteration
   //free(line);
   return local_data;
 }

@@ -60,6 +60,7 @@ void wificollector_collect()
   size_t bytes_number = 0;
 
 
+
   do {
     printf("What cell do you want to collect? (1-21)\n");
     scanf(" %d", &selected_cell);
@@ -89,7 +90,8 @@ void wificollector_collect()
         {
           new_ap = read_access_point(fp, buff, bytes_number);   //read new access point
           printf("%s\n", new_ap->ESSID);
-          push(new_ap, sizeof(new_ap));                                  //and push it to the list
+          push(new_ap, sizeof(new_ap));
+                                          //and push it to the list
           free(new_ap);
         }
       }

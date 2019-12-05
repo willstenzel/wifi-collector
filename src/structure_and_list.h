@@ -11,7 +11,7 @@ typedef struct wifi_data
 {
   int cell_ind;
   unsigned char MAC[6];
-  char* ESSID;
+  char ESSID[40];
   mode_vals mode;
   int channel;
   encryption_vals encrytpion_key;

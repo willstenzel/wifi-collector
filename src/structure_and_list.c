@@ -32,6 +32,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "string.h"
+#include "io.h"
 
 /*---------------------------------------------------------------------------*/
 /* Definition of functions                                                   */
@@ -77,7 +78,9 @@ printf("push: allocating memory\n");
     link->data->MAC[i] = object->MAC[i];
   }
 
-  link->data->ESSID = object->ESSID;
+  string_copy(link->data->ESSID, object->ESSID, strlen(object->ESSID)+1);
+  //link->data->ESSID[strlen(object->ESSID)] = '\0';
+  //printf("%s %s %d\n",link->data->ESSID ,object->ESSID, strlen(object->ESSID));
   link->data->mode = object->mode;
   link->data->channel = object->channel;
   link->data->encrytpion_key = object->encrytpion_key;
@@ -149,7 +152,6 @@ void delete_list(void)
   {
     if(pointer != NULL)
     {
-      free(pointer->data->ESSID);
       free(pointer->data);
       free(pointer);
     }
