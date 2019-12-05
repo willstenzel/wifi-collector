@@ -146,11 +146,14 @@ void wificollector_show_data_one_network()
          buffer[index] = c;
          index = index + 1;
        }
+       buffer[index] = '\0';
     }
 
-    char* essid = extract(buffer, "\"", 3, 0);
+    //char* essid = extract(buffer, "\"", 3, 0);
+    int len = strlen(buffer);
+    //buffer[len-2] = '\0';
 #ifdef DEBUG
-printf("ESSID --> %s\n", essid);  // TODO: Remove after testing
+printf("%d ESSID --> %s\n", len, buffer);  // TODO: Remove after testing
 #endif
 
     // loop throught all the access points
@@ -158,7 +161,7 @@ printf("ESSID --> %s\n", essid);  // TODO: Remove after testing
 
     while((wifi_ptr = move_head()) != NULL)
     {
-      if (strcmp(essid, wifi_ptr->data->ESSID) == 0)
+      if (strcmp(buffer, wifi_ptr->data->ESSID) == 0)
       {
         // print each access point that has a matching ESSID
         display_single_access_point(wifi_ptr->data);

@@ -155,3 +155,28 @@ void delete_list(void)
     }
   }
 }
+/*void sort_list(void)
+{
+  wifi_list *prev_pointer = NULL, *curr_pointer = list_head, buff_pointer;
+  while (curr_pointer = move_head() ! = NULL)
+  {
+    if(curr_pointer->data->quality[0] < curr_pointer->next->data->quality[0])
+    {
+      if(prev_pointer == NULL)
+      {
+        buff_pointer = curr_pointer->next->next;
+        list_head = curr_pointer->next;
+        list_head->next = curr_pointer;
+        curr_pointer->next = buff_pointer;
+      }else
+      {
+        buff_pointer = curr_pointer->next->next;
+        curr_pointer = curr_pointer->next;
+        prev_pointer->next = curr_pointer;
+        curr_pointer->next =
+      }
+    }
+
+    if(prev_pointer->data->quality[0] )
+  }
+}*/

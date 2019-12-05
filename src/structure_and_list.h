@@ -31,6 +31,7 @@ void list_init(void);
 void push(wifi_data * object, int object_size);
 wifi_list * get_head(void);
 wifi_list * move_head(void);
+void sort_list(void);
 void delete_list(void);
 
 #endif
