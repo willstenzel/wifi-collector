@@ -266,3 +266,69 @@ printf("ESSID --> %s\n", essid);  // TODO: Remove after testing
     previous = current;
   }
 }
+
+
+/** Function wificollector_export ******************************************
+
+  Synopsis     Writes a binary file with the currently stored data
+
+  SideEffects  Creates a binary file containing all the wifi data
+
+******************************************************************************/
+void wificollector_export() {
+  // TODO
+  // Ask user to get the name of the file
+
+  char *filename = "export.bin";
+
+
+
+  FILE *fd = fopen(filename, "wb");
+
+  if (fd == NULL) {
+      printf("ERROR: There was an error opening your file");
+      return;
+  }
+
+  wifi_list *wifi_ptr = NULL;
+  int total_num_bytes = 0;
+  int num_bytes_written;
+
+  while((wifi_ptr = move_head()) != NULL)
+  {
+	    // Save the wifi data
+    	num_bytes_written = fwrite(&(wifi_ptr->data), sizeof(wifi_data), 1, fd);
+    	total_num_bytes = total_num_bytes + num_bytes_written;
+
+      //
+      //
+    	// // Save the num of chars in the string
+    	// len_string = strlen(aux->name);
+    	// num_bytes_written = fwrite(&len_string, sizeof(int), 1, fd);
+    	// total_num_bytes = total_num_bytes + Num_bytes_written
+      //
+    	// // Store the name of the card
+    	// num_bytes_written = fwrite(aux->name, sizeof(char), len_string, fd);
+    	// total_num_bytes = total_num_bytes + Num_bytes_written
+
+
+  }
+
+  fclose(fd);
+
+  return;
+
+}
+
+
+
+/** Function wificollector_import ******************************************
+
+  Synopsis     Reads a binary file with the saved wifi data
+
+  SideEffects  Adds the data from the file into the local memory
+
+******************************************************************************/
+void wificollector_import() {
+
+}
