@@ -279,26 +279,38 @@ void wificollector_export() {
   // TODO
   // Ask user to get the name of the file
 
-  char *filename = "export.bin";
+  char file_name[40];
+  char selected_name[40];
+  //char essid_size = 0;
 
+  printf("Indicate the name of the file:\n");
+  scanf("%s", &selected_name);
 
+  sprintf(file_name, "%s.bin", selected_name);
+  FILE *fd = fopen(file_name, "wb");
 
-  FILE *fd = fopen(filename, "wb");
-
-  if (fd == NULL) {
+  if (fd == NULL)
+  {
       printf("ERROR: There was an error opening your file");
       return;
   }
 
   wifi_list *wifi_ptr = NULL;
-  int total_num_bytes = 0;
-  int num_bytes_written;
 
   while((wifi_ptr = move_head()) != NULL)
   {
-	    // Save the wifi data
-    	num_bytes_written = fwrite(&(wifi_ptr->data), sizeof(wifi_data), 1, fd);
-    	total_num_bytes = total_num_bytes + num_bytes_written;
+	    // Save the
+    	fwrite(&(wifi_ptr->data->cell_ind), sizeof(wifi_ptr->data->cell_ind), 1, fd);
+      fwrite((wifi_ptr->data->MAC), sizeof(wifi_ptr->data->MAC), 1, fd);
+      fwrite((wifi_ptr->data->ESSID), sizeof(wifi_ptr->data->ESSID), 1, fd);
+
+      // printf("%d %d\n",sizeof(char)*40, sizeof(wifi_ptr->data->ESSID));
+      fwrite(&(wifi_ptr->data->mode), sizeof(wifi_ptr->data->mode), 1, fd);
+      fwrite(&(wifi_ptr->data->channel), sizeof(wifi_ptr->data->channel), 1, fd);
+      fwrite(&(wifi_ptr->data->encrytpion_key), sizeof(wifi_ptr->data->encrytpion_key), 1, fd);
+      fwrite((wifi_ptr->data->quality), sizeof(wifi_ptr->data->quality), 1, fd);
+      // printf("%d %d\n",sizeof(wifi_ptr->data->MAC), sizeof(wifi_ptr->data->quality));
+
 
       //
       //
@@ -329,6 +341,74 @@ void wificollector_export() {
   SideEffects  Adds the data from the file into the local memory
 
 ******************************************************************************/
-void wificollector_import() {
+void wificollector_import()
+{
+  char file_name[40];
+  char selected_name[40];
+  //char essid_size = 0;
 
+  printf("Indicate the name of the file:\n");
+  scanf("%s", &selected_name);
+
+  sprintf(file_name, "%s.bin", selected_name);
+
+  FILE *fd = fopen(file_name, "rb");
+
+  if (fd == NULL)
+  {
+      printf("ERROR: There was an error opening your file");
+      return;
+  }
+
+  wifi_data* local_data = (struct wifi_data*) malloc(sizeof(struct wifi_data)); //local wifi_data object
+  wifi_list* wifi_ptr;
+
+  while(!feof(fd))
+  {
+      wifi_ptr = get_head();
+#ifdef DEBUG
+      printf("new object\n");
+#endif
+    	fread(&(local_data->cell_ind), sizeof(local_data->cell_ind), 1, fd);
+      fread((local_data->MAC), sizeof(local_data->MAC), 1, fd);
+      fread((local_data->ESSID), sizeof(local_data->ESSID), 1, fd);
+
+      fread(&(local_data->mode), sizeof(local_data->mode), 1, fd);
+      fread(&(local_data->channel), sizeof(local_data->channel), 1, fd);
+      fread(&(local_data->encrytpion_key), sizeof(local_data->encrytpion_key), 1, fd);
+      fread((local_data->quality), sizeof(local_data->quality), 1, fd);
+
+      short alread_present = 0, inc = 0;
+      while(wifi_ptr!= NULL)
+      {
+        inc++;
+        if(!string_compare(local_data->MAC, wifi_ptr->data->MAC, 6))
+        {
+          if(local_data->cell_ind == wifi_ptr->data->cell_ind)
+          {
+#ifdef DEBUG
+            printf("found copy\n");
+#endif
+            alread_present = 1;
+            break;
+          }
+        }
+        wifi_ptr=wifi_ptr->next;
+      }
+#ifdef DEBUG
+      printf("objects in list: %d\n", inc);
+#endif
+      if (alread_present == 0)
+      {
+#ifdef DEBUG
+        printf("pushing...: %s\n", local_data->ESSID);
+#endif
+        push(local_data, sizeof(local_data));
+      }
+    }
+    free(local_data);
+}
+void wificollector_sort()
+{
+  sort_list();
 }

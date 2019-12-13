@@ -47,5 +47,6 @@ void wificollector_select_best();
 void wificollector_delete_net();
 void wificollector_export();
 void wificollector_import();
+void wificollector_sort();
 
 #endif

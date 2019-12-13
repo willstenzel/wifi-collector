@@ -126,13 +126,13 @@ void handle_menu()
                         wificollector_delete_net();
                         break;
                 case 6:
-                        // wificollector_sort();
+                        wificollector_sort();
                         break;
                 case 7:
-                        // wificollector_export();
+                        wificollector_export();
                         break;
                 case 8:
-                        // wificollector_import();
+                        wificollector_import();
                         break;
                 default:
                         break;

@@ -191,3 +191,14 @@ void string_copy(char* destination, char* source, char char_nbr)
     destination[i] = source[i];
   }
 }
+int string_compare(char* string1, char* string2, char char_nbr)
+{
+  for(int i = 0; i < char_nbr; i ++)
+  {
+    if (string1[i] != string2[i])
+    {
+      return 1;
+    }
+  }
+  return 0;
+}

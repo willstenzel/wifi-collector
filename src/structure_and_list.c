@@ -33,6 +33,7 @@
 #include <stdlib.h>
 #include "string.h"
 #include "io.h"
+#include "display_data.h"
 
 /*---------------------------------------------------------------------------*/
 /* Definition of functions                                                   */
@@ -135,6 +136,11 @@ wifi_list *move_head(void)
   local_head = local_head->next;
   return return_head;
 }
+
+wifi_list *move_head_ptr(wifi_list* local_head)
+{
+  return local_head->next;
+}
 /**Function********************************************************************
 
   Synopsis           frees all bojects dynamicly located in linked list.
@@ -157,28 +163,41 @@ void delete_list(void)
     }
   }
 }
-/*void sort_list(void)
+void sort_list(void)
 {
-  wifi_list *prev_pointer = NULL, *curr_pointer = list_head, buff_pointer;
-  while (curr_pointer = move_head() ! = NULL)
+  wifi_list *curr_pointer;
+  wifi_data *data;
+  char change = 1;
+  while(change)
   {
-    if(curr_pointer->data->quality[0] < curr_pointer->next->data->quality[0])
+    change = 0;
+    while ((curr_pointer = move_head()) != NULL)
     {
-      if(prev_pointer == NULL)
+      if(curr_pointer->next != NULL)
       {
-        buff_pointer = curr_pointer->next->next;
-        list_head = curr_pointer->next;
-        list_head->next = curr_pointer;
-        curr_pointer->next = buff_pointer;
-      }else
-      {
-        buff_pointer = curr_pointer->next->next;
-        curr_pointer = curr_pointer->next;
-        prev_pointer->next = curr_pointer;
-        curr_pointer->next =
+        if(curr_pointer->data->quality[0] < curr_pointer->next->data->quality[0])
+          {
+#ifdef DEBUG
+            printf("new object sort\n");
+#endif
+            change = 1;
+            data = curr_pointer->data;
+            curr_pointer->data = curr_pointer->next->data;
+            curr_pointer->next->data = data;
+        }
       }
     }
+  #ifdef DEBUG
+    printf("next round\n");
+  #endif
 
-    if(prev_pointer->data->quality[0] )
   }
-}*/
+  #ifdef DEBUG
+  printf("sorted\n");
+  #endif
+
+  while ((curr_pointer = move_head()) != NULL)
+  {
+    display_single_access_point(curr_pointer->data);
+  }
+}
