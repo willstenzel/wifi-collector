@@ -1,7 +1,7 @@
 # Mój plik makefile - wpisz 'make all' aby skompilować cały program
 # (właściwie wystarczy wpisać 'make' - all jest domyślny jako pierwszy cel)
 CC = gcc
-CFLAGS=-Wall -Wextra
+CFLAGS=-Wall -Wextra -gstabs
 
 all: main.o structure_and_list.o menu.o display_data.o wifi_collector.o io.o
 	$(CC) main.o structure_and_list.o menu.o wifi_collector.o display_data.o io.o -o wifi_collector $(CFLAGS)

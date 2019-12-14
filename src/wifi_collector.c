@@ -370,6 +370,7 @@ void wificollector_import()
       }
     }
     free(local_data);
+    fclose(fd);
 }
 void wificollector_sort()
 {
