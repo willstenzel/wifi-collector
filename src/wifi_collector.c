@@ -58,20 +58,29 @@ void wificollector_collect()
   char another_access_point = 'N';
   wifi_data* new_ap = NULL;
   size_t bytes_number = 0;
+  char char_nbr;
 
 
-
-  do {
+  do
+  {
     printf("What cell do you want to collect? (1-21)\n");
-    scanf(" %d", &selected_cell);
+    char_nbr = scanf(" %d", &selected_cell);
+    if(char_nbr == -1)
+      break;
 
+    while (getc(stdin)!='\n')
+      continue;
     while (selected_cell < 1 || selected_cell > 21)
     {
       printf("Wrong number!\n");
       printf("What cell do you want to collect? (1-21)\n");
-      scanf(" %d", &selected_cell);
-    }
+      char_nbr = scanf(" %d", &selected_cell);
 
+      while (getc(stdin)!='\n')
+        continue;
+    }
+    if(char_nbr == -1)
+      break;
     sprintf(cell_name, "../cells/info_cell_%d.txt", selected_cell);
     sprintf(cell_number, "Cell %d", selected_cell);
 
@@ -89,8 +98,8 @@ void wificollector_collect()
         if (strcmp(buff, cell_number) == 0)               //If the line == "Cell x", where x = [1,21]
         {
           new_ap = read_access_point(fp, buff, bytes_number);   //read new access point
-          printf("%s\n", new_ap->ESSID);
-          push(new_ap, sizeof(new_ap));
+          printf("Loaded %s from cell number %d\n", new_ap->ESSID, new_ap->cell_ind);
+          push(new_ap);
                                           //and push it to the list
           free(new_ap);
         }
@@ -114,48 +123,23 @@ void wificollector_collect()
 ******************************************************************************/
 void wificollector_show_data_one_network()
 {
+  if(get_head() == NULL)
+  {
+    printf("Data list is empty\n");
+    return;
+  }
+    char char_nbr, found = 0;
+    char essid[MAX_ESSID_LENGTH];
 
-    printf("Indicate the ESSID (use “”): \n");
-    // scanf or get line for the next line
-    char *buffer;
-    size_t buff_max = 80;
-    size_t bytes_read;
+    printf("Indicate the ESSID: ");
+    char_nbr = scanf(" %s", essid);
 
-    buffer = (char *)malloc(buff_max * sizeof(char));
-    // TODO: don't forget to free the data
+    if(char_nbr == -1)
+      return;
 
-    char c;
-    int index = 0;
 
-    while ((c = getc(stdin)))
-    {
-       if (index == 0 && c == '\n')
-       {  // Clear the buffer of any newline characters
-         continue;
-       }
-       else if (c == EOF)// Exit the function if the user types cntrl-d
-       {
-         printf("exiting...");
-         free(buffer);
-         delete_list();
-         exit(0);
-       }
-       else if (index != 0 && c == '\n') // The end of the user input
-       {
-         break;
-       } else // Add the charater to the buffer
-       {
-         buffer[index] = c;
-         index = index + 1;
-       }
-       buffer[index] = '\0';
-    }
-
-    //char* essid = extract(buffer, "\"", 3, 0);
-    int len = strlen(buffer);
-    //buffer[len-2] = '\0';
 #ifdef DEBUG
-printf("%d ESSID --> %s\n", len, buffer);  // TODO: Remove after testing
+printf("%d ESSID --> %s\n", len, buffer);
 #endif
 
     // loop throught all the access points
@@ -163,14 +147,15 @@ printf("%d ESSID --> %s\n", len, buffer);  // TODO: Remove after testing
 
     while((wifi_ptr = move_head()) != NULL)
     {
-      if (strcmp(buffer, wifi_ptr->data->ESSID) == 0)
+      if (string_compare(essid, wifi_ptr->data->ESSID, strlen(essid)) == 0)
       {
         // print each access point that has a matching ESSID
         display_single_access_point(wifi_ptr->data);
+        found = 1;
       }
     }
-
-    free(buffer);
+    if(!found)
+      printf("No network %s found", essid);
 }
 
 
@@ -186,6 +171,12 @@ void wificollector_select_best()
 {
   wifi_data *best_network = NULL;
   wifi_list *wifi_ptr = NULL;
+
+  if(get_head() == NULL)
+  {
+    printf("Data list is empty\n");
+    return;
+  }
 
   while((wifi_ptr = move_head()) != NULL)
   {
@@ -211,44 +202,24 @@ void wificollector_select_best()
 void wificollector_delete_net()
 {
   wifi_list *current, *previous = list_head;
-  printf("Indicate the ESSID (use “”): \n");
 
-  char c;
-  int index = 0;
-
-  char *buffer;
-  size_t buff_max = 80;
-  size_t bytes_read;
-
-  buffer = (char *)malloc(buff_max * sizeof(char));
-
-
-  while ((c = getc(stdin)))
+  if(get_head() == NULL)
   {
-     if (index == 0 && c == '\n')
-     {  // Clear the buffer of any newline characters
-       continue;
-     }
-     else if (c == EOF)// Exit the function if the user types cntrl-d
-     {
-       printf("exiting...");
-       free(buffer);
-       delete_list();
-       exit(0);
-     }
-     else if (index != 0 && c == '\n') // The end of the user input
-     {
-       break;
-     } else // Add the charater to the buffer
-     {
-       buffer[index] = c;
-       index = index + 1;
-     }
+    printf("Data list is empty\n");
+    return;
   }
-  char* essid = extract(buffer, "\"", 3, 0);
+  char char_nbr;
+  char essid[MAX_ESSID_LENGTH];
+
+  printf("Indicate the ESSID: ");
+  char_nbr = scanf(" %s", essid);
+
+  if(char_nbr == -1)
+    return;
+
 
 #ifdef DEBUG
-printf("ESSID --> %s\n", essid);  // TODO: Remove after testing
+printf("ESSID --> %s\n", essid);
 #endif
 
   while((current = move_head()) != NULL)
@@ -259,7 +230,7 @@ printf("ESSID --> %s\n", essid);  // TODO: Remove after testing
         list_head = current->next;
       else
         previous->next = current->next;
-      free(current->data->ESSID);
+      printf("Deleted %s from cell number %d\n", current->data->ESSID, current->data->cell_ind);
       free(current->data);
       free(current);
     }
@@ -276,15 +247,21 @@ printf("ESSID --> %s\n", essid);  // TODO: Remove after testing
 
 ******************************************************************************/
 void wificollector_export() {
-  // TODO
-  // Ask user to get the name of the file
+
 
   char file_name[40];
   char selected_name[40];
-  //char essid_size = 0;
 
+  if(get_head() == NULL)
+  {
+    printf("Data list is empty\n");
+    return;
+  }
+  // Ask user to get the name of the file
   printf("Indicate the name of the file:\n");
-  scanf("%s", &selected_name);
+  if(scanf("%s", selected_name) == -1)
+    return;
+
 
   sprintf(file_name, "%s.bin", selected_name);
   FILE *fd = fopen(file_name, "wb");
@@ -304,24 +281,11 @@ void wificollector_export() {
       fwrite((wifi_ptr->data->MAC), sizeof(wifi_ptr->data->MAC), 1, fd);
       fwrite((wifi_ptr->data->ESSID), sizeof(wifi_ptr->data->ESSID), 1, fd);
 
-      // printf("%d %d\n",sizeof(char)*40, sizeof(wifi_ptr->data->ESSID));
       fwrite(&(wifi_ptr->data->mode), sizeof(wifi_ptr->data->mode), 1, fd);
       fwrite(&(wifi_ptr->data->channel), sizeof(wifi_ptr->data->channel), 1, fd);
       fwrite(&(wifi_ptr->data->encrytpion_key), sizeof(wifi_ptr->data->encrytpion_key), 1, fd);
       fwrite((wifi_ptr->data->quality), sizeof(wifi_ptr->data->quality), 1, fd);
-      // printf("%d %d\n",sizeof(wifi_ptr->data->MAC), sizeof(wifi_ptr->data->quality));
 
-
-      //
-      //
-    	// // Save the num of chars in the string
-    	// len_string = strlen(aux->name);
-    	// num_bytes_written = fwrite(&len_string, sizeof(int), 1, fd);
-    	// total_num_bytes = total_num_bytes + Num_bytes_written
-      //
-    	// // Store the name of the card
-    	// num_bytes_written = fwrite(aux->name, sizeof(char), len_string, fd);
-    	// total_num_bytes = total_num_bytes + Num_bytes_written
 
 
   }
@@ -345,11 +309,10 @@ void wificollector_import()
 {
   char file_name[40];
   char selected_name[40];
-  //char essid_size = 0;
 
   printf("Indicate the name of the file:\n");
-  scanf("%s", &selected_name);
-
+  if(scanf("%s", selected_name) == -1)
+    return;
   sprintf(file_name, "%s.bin", selected_name);
 
   FILE *fd = fopen(file_name, "rb");
@@ -382,7 +345,7 @@ void wificollector_import()
       while(wifi_ptr!= NULL)
       {
         inc++;
-        if(!string_compare(local_data->MAC, wifi_ptr->data->MAC, 6))
+        if(!string_compare((char*)local_data->MAC, (char*)wifi_ptr->data->MAC, 6))
         {
           if(local_data->cell_ind == wifi_ptr->data->cell_ind)
           {
@@ -403,7 +366,7 @@ void wificollector_import()
 #ifdef DEBUG
         printf("pushing...: %s\n", local_data->ESSID);
 #endif
-        push(local_data, sizeof(local_data));
+        push(local_data);
       }
     }
     free(local_data);

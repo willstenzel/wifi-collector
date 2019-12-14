@@ -7,7 +7,7 @@
 
   Synopsis    Displays the wifi data to to the user
 
-  Description Either shows a single cell's info or all info from the cells 
+  Description Either shows a single cell's info or all info from the cells
 
   Copyright   [Copyright (c) 2012 Carlos III University of Madrid
   All rights reserved.
@@ -113,27 +113,30 @@ static void print_encryption_key(encryption_vals encrytpion_key)
 ******************************************************************************/
 void display_single_access_point(wifi_data* wifi)
 {
-  printf("Cell %d\n", wifi->cell_ind);
-  // Print the Address
-  printf("Address: ");
-  for (int i=0; i<6; i++)
+  if(wifi != NULL)
   {
-      printf("%02X", wifi->MAC[i]);
-      if (i<5)
-      {
-          printf(":");
-      }
-      else
-      {
-          printf("\n");
-      }
-  }
+    printf("Cell %d\n", wifi->cell_ind);
+    // Print the Address
+    printf("Address: ");
+    for (int i=0; i<6; i++)
+    {
+        printf("%02X", wifi->MAC[i]);
+        if (i<5)
+        {
+            printf(":");
+        }
+        else
+        {
+            printf("\n");
+        }
+    }
 
-  printf("ESSID:%s\n", wifi->ESSID);
-  print_mode(wifi->mode);
-  printf("Channel:%d\n", wifi->channel);
-  print_encryption_key(wifi->encrytpion_key);
-  printf("Quality=%d/%d\n", wifi->quality[0], wifi->quality[1]);
+    printf("ESSID:%s\n", wifi->ESSID);
+    print_mode(wifi->mode);
+    printf("Channel:%d\n", wifi->channel);
+    print_encryption_key(wifi->encrytpion_key);
+    printf("Quality=%d/%d\n", wifi->quality[0], wifi->quality[1]);
+  }
 }
 
 

@@ -63,7 +63,7 @@ void list_init(void)
   SideEffects        always call delete_list() function before exiting program
 
 ******************************************************************************/
-void push(wifi_data * object, int object_size)
+void push(wifi_data * object)
 {
   //create a link
 #ifdef DEBUG

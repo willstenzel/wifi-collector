@@ -44,10 +44,11 @@
 /*---------------------------------------------------------------------------*/
 
 
-int main(int argc, char const *argv[])
+int main()
 {
+  printf("[2019] SUCEM S.L. Wifi Collector\n");
   list_init();
   handle_menu();
-  
+
   return 0;
 }

@@ -1,8 +1,8 @@
 #ifndef __STRUCTURE_AND_LIST_H
 #define __STRUCTURE_AND_LIST_H
 
-#define DEBUG
-
+//#define DEBUG
+#define MAX_ESSID_LENGTH 40
 typedef enum mode_vals {autos, adhoc, managed, master, repeater,
 secondary, monitor, unknown}mode_vals;
 typedef enum encryption_vals {On, Off}encryption_vals;
@@ -28,7 +28,7 @@ typedef struct wifi_list
 struct wifi_list * list_head;
 
 void list_init(void);
-void push(wifi_data * object, int object_size);
+void push(wifi_data * object);
 wifi_list * get_head(void);
 wifi_list * move_head(void);
 void sort_list(void);

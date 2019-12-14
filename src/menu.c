@@ -49,7 +49,8 @@
 ******************************************************************************/
 void display_menu()
 {
-        printf("[2019] SUCEM S.L. Wifi Collector\n\n");
+        //system("@cls||clear");
+        printf("\n");
         printf("[1] wificollector_quit\n");
         printf("[2] wificollector_collect\n");
         printf("[3] wificollector_show_data_one_network\n");
@@ -59,7 +60,7 @@ void display_menu()
         printf("[7] wificollector_export\n");
         printf("[8] wificollector_import\n");
         printf("\n");
-        printf("Option: \n");
+        printf("Option: ");
 
 }
 
@@ -79,66 +80,67 @@ void display_menu()
 ******************************************************************************/
 void handle_menu()
 {
-        char input;
-        int quit = 0;
+  char option, char_nbr;
+  int quit = 0;
 
-        display_menu();
-
-        while ((input = getc(stdin)) && quit != 1)
-        {
-
-                //printf("input: %c\n", input);
-
-                // if the system reads a new line or EOF char it can ignore it
-                if (input == '\n')
-                {
-                    continue;
-                }
-                if (input == EOF)
-                {
-                    printf("exiting...\n");
-                    delete_list();
-                }
-                // check that the input is a number between 1 and 8
-                if (input < '1' || input > '8')
-                {
-                        printf("Please enter an integer input between 1-8\n");
-                        continue;
-                }
-                // converty to char to integer
-                switch (input - '0')
-                {
-                case 1:
-                        printf("PROGRAM QUIT\n");
-                        delete_list();
-                        quit = 1;  // Set quit to true to exit the while loop
-                        break;
-                case 2:
-                        wificollector_collect();
-                        break;
-                case 3:
-                        wificollector_show_data_one_network();
-                        break;
-                case 4:
-                        wificollector_select_best();
-                        break;
-                case 5:
-                        wificollector_delete_net();
-                        break;
-                case 6:
-                        wificollector_sort();
-                        break;
-                case 7:
-                        wificollector_export();
-                        break;
-                case 8:
-                        wificollector_import();
-                        break;
-                default:
-                        break;
-                }
-                display_menu();
-        }
-
-        // free_all_data();
+  do
+  {
+    display_menu();
+    option = 0;
+    char_nbr = scanf(" %d", (int*) &option);
+    if(!char_nbr)
+    {
+      while (getc(stdin)!='\n')
+        continue;
+    }
+#ifdef DEBUG
+    printf("char nbr: %d option: %d\n", char_nbr, option);
+#endif
+    if (char_nbr == -1)
+    {
+        printf("PROGRAM QUIT\n");
+        delete_list();
+        quit = 1;
+    }else
+    {
+      // check that the input is a number between 1 and 8
+      if(option < 1 || option > 8)
+      {
+        printf("Wrong number!\n");
+        printf("Please enter an integer input between 1-8\n");
+      }
+      // converty to char to integer
+      switch (option)
+      {
+      case 1:
+              printf("PROGRAM QUIT\n");
+              delete_list();
+              quit = 1;  // Set quit to true to exit the while loop
+              break;
+      case 2:
+              wificollector_collect();
+              break;
+      case 3:
+              wificollector_show_data_one_network();
+              break;
+      case 4:
+              wificollector_select_best();
+              break;
+      case 5:
+              wificollector_delete_net();
+              break;
+      case 6:
+              wificollector_sort();
+              break;
+      case 7:
+              wificollector_export();
+              break;
+      case 8:
+              wificollector_import();
+              break;
+      default:
+              break;
+      }
+    }
+  } while (quit != 1);
 }
