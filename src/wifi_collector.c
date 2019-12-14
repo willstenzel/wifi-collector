@@ -59,6 +59,7 @@ void wificollector_collect()
   wifi_data* new_ap = NULL;
   size_t bytes_number = 0;
   char char_nbr;
+  int char_eof = 0;
 
 
   do
@@ -66,7 +67,10 @@ void wificollector_collect()
     printf("What cell do you want to collect? (1-21)\n");
     char_nbr = scanf(" %d", &selected_cell);
     if(char_nbr == -1)
+    {
+      clearerr(stdin);
       break;
+    }
 
     while (getc(stdin)!='\n')
       continue;
@@ -80,7 +84,10 @@ void wificollector_collect()
         continue;
     }
     if(char_nbr == -1)
+    {
+      clearerr(stdin);
       break;
+    }
     sprintf(cell_name, "../cells/info_cell_%d.txt", selected_cell);
     sprintf(cell_number, "Cell %d", selected_cell);
 
@@ -135,7 +142,10 @@ void wificollector_show_data_one_network()
     char_nbr = scanf(" %s", essid);
 
     if(char_nbr == -1)
+    {
+      clearerr(stdin);
       return;
+    }
 
 
 #ifdef DEBUG
@@ -215,8 +225,10 @@ void wificollector_delete_net()
   char_nbr = scanf(" %s", essid);
 
   if(char_nbr == -1)
+  {
+    clearerr(stdin);
     return;
-
+  }
 
 #ifdef DEBUG
 printf("ESSID --> %s\n", essid);
@@ -260,7 +272,10 @@ void wificollector_export() {
   // Ask user to get the name of the file
   printf("Indicate the name of the file:\n");
   if(scanf("%s", selected_name) == -1)
+  {
+    clearerr(stdin);
     return;
+  }
 
 
   sprintf(file_name, "%s.bin", selected_name);
@@ -312,7 +327,10 @@ void wificollector_import()
 
   printf("Indicate the name of the file:\n");
   if(scanf("%s", selected_name) == -1)
+  {
+    clearerr(stdin);
     return;
+  }
   sprintf(file_name, "%s.bin", selected_name);
 
   FILE *fd = fopen(file_name, "rb");
