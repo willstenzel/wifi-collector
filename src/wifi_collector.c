@@ -249,7 +249,7 @@ printf("ESSID --> %s\n", essid);
 void wificollector_export() {
 
 
-  char file_name[40];
+  char file_name[44];
   char selected_name[40];
 
   if(get_head() == NULL)
@@ -307,7 +307,7 @@ void wificollector_export() {
 ******************************************************************************/
 void wificollector_import()
 {
-  char file_name[40];
+  char file_name[44];
   char selected_name[40];
 
   printf("Indicate the name of the file:\n");
