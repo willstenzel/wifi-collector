@@ -34,7 +34,8 @@
 /*---------------------------------------------------------------------------*/
 /* Definition of functions                                                   */
 /*---------------------------------------------------------------------------*/
-
+static void print_mode(mode_vals mode);
+static void print_encryption_key(encryption_vals encrytpion_key);
 
 
 /**Function print_mode ********************************************************

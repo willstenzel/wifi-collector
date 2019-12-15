@@ -35,7 +35,7 @@
 
 //#define DEBUG
 #define MAX_ESSID_LENGTH 40
-
+#define MAX_FILE_NAME 50
 
 /*---------------------------------------------------------------------------*/
 /* Type declarations                                                         */
@@ -70,7 +70,7 @@ typedef struct wifi_data
 {
   int cell_ind;
   unsigned char MAC[6];
-  char ESSID[40];
+  char ESSID[MAX_ESSID_LENGTH];
   mode_vals mode;
   int channel;
   encryption_vals encrytpion_key;

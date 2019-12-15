@@ -67,9 +67,9 @@ void list_init(void)
 void push(wifi_data * object)
 {
   //create a link
-#ifdef DEBUG
-printf("push: allocating memory\n");
-#endif
+  #ifdef DEBUG
+  printf("push: allocating memory\n");
+  #endif
 
   struct wifi_list *link = (struct wifi_list*) malloc(sizeof(struct wifi_list));
   link->data  = (wifi_data* ) malloc(sizeof(struct wifi_data));
@@ -81,8 +81,9 @@ printf("push: allocating memory\n");
   }
 
   string_copy(link->data->ESSID, object->ESSID, strlen(object->ESSID)+1);
-  //link->data->ESSID[strlen(object->ESSID)] = '\0';
-  //printf("%s %s %d\n",link->data->ESSID ,object->ESSID, strlen(object->ESSID));
+  #ifdef DEBUG
+  printf("%pushing essid: s pushed essid: %s\n",link->data->ESSID ,object->ESSID);
+  #endif
   link->data->mode = object->mode;
   link->data->channel = object->channel;
   link->data->encrytpion_key = object->encrytpion_key;
@@ -96,10 +97,20 @@ printf("push: allocating memory\n");
 
   //point first to new first node
   list_head = link;
-#ifdef DEBUG
-printf("object pushed\n");
-#endif
+  #ifdef DEBUG
+  printf("object pushed\n");
+  #endif
 }
+
+/**Function********************************************************************
+
+  Synopsis           returns pointer to head list
+
+  Parameters         none
+
+  Return Value       wifi_list struct pointer to head of the list
+
+******************************************************************************/
 wifi_list *get_head(void)
 {
   return list_head;
@@ -127,22 +138,17 @@ wifi_list *move_head(void)
   static wifi_list *return_head = NULL;
 
   if(list_head == NULL)
-    return NULL;
+  return NULL;
 
   if(local_head == NULL)  //if it is first object or prievous one was last
   {
     local_head = list_head;
     if(return_head != NULL) //if it is not first object but previous one was last
-      return NULL;
+    return NULL;
   }
   return_head = local_head;
   local_head = local_head->next;
   return return_head;
-}
-
-wifi_list *move_head_ptr(wifi_list* local_head)
-{
-  return local_head->next;
 }
 
 
@@ -167,10 +173,10 @@ void delete_list(void)
   }
 }
 
-
 /**Function********************************************************************
 
-  Synopsis           Sorts the wifi_list from higest to lowest quality
+  Synopsis           Sorts the wifi_list from higest to lowest quality using
+                     bubble sort algorithm
 
   Parameters         none
 
@@ -182,6 +188,8 @@ void sort_list(void)
   wifi_list *curr_pointer;
   wifi_data *data;
   char change = 1;
+
+  //repeat unless one loop execution without swap
   while(change)
   {
     change = 0;
@@ -190,20 +198,20 @@ void sort_list(void)
       if(curr_pointer->next != NULL)
       {
         if(curr_pointer->data->quality[0] < curr_pointer->next->data->quality[0])
-          {
-#ifdef DEBUG
-            printf("new object sort\n");
-#endif
-            change = 1;
-            data = curr_pointer->data;
-            curr_pointer->data = curr_pointer->next->data;
-            curr_pointer->next->data = data;
+        {
+          #ifdef DEBUG
+          printf("new object sort\n");
+          #endif
+          change = 1;
+          data = curr_pointer->data;
+          curr_pointer->data = curr_pointer->next->data;
+          curr_pointer->next->data = data;
         }
       }
     }
-  #ifdef DEBUG
+    #ifdef DEBUG
     printf("next round\n");
-  #endif
+    #endif
 
   }
   #ifdef DEBUG

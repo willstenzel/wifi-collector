@@ -1,5 +1,5 @@
-# Mój plik makefile - wpisz 'make all' aby skompilować cały program
-# (właściwie wystarczy wpisać 'make' - all jest domyślny jako pierwszy cel)
+# Makefile file to compile all of dependenciec
+# just type make in console to compile
 CC = gcc
 CFLAGS=-Wall -Wextra -gstabs
 

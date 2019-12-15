@@ -58,15 +58,15 @@ wifi_data* read_access_point(FILE *fp, char* line, size_t bytes_number)
   wifi_data* local_data = (struct wifi_data*) malloc(sizeof(struct wifi_data)); //local wifi_data object
 
   //Cell identifier
-#ifdef DEBUG
-printf("atoing cell\n");
-#endif
+  #ifdef DEBUG
+  printf("atoing cell\n");
+  #endif
   local_data->cell_ind = atoi(&line[5]);
 
   //MAC
-#ifdef DEBUG
-printf("getting MAC\n");
-#endif
+  #ifdef DEBUG
+  printf("getting MAC\n");
+  #endif
   getline(&line, &bytes_number, fp);
 
   for (int i = 0; i < 6; i++)
@@ -76,9 +76,9 @@ printf("getting MAC\n");
   }
 
   //ESSID
-#ifdef DEBUG
-printf("getting ESSID\n");
-#endif
+  #ifdef DEBUG
+  printf("getting ESSID\n");
+  #endif
 
   getline(&line, &bytes_number, fp);
   int len = strlen(line);
@@ -88,9 +88,9 @@ printf("getting ESSID\n");
 
 
   //Mode
-#ifdef DEBUG
-printf("getting mode\n");
-#endif
+  #ifdef DEBUG
+  printf("getting mode\n");
+  #endif
   getline(&line, &bytes_number, fp);
 
   if (!strcmp(&line[5], "Auto\n"))
@@ -127,16 +127,16 @@ printf("getting mode\n");
   }
 
   //Channel
-#ifdef DEBUG
-printf("getting channel\n");
-#endif
+  #ifdef DEBUG
+  printf("getting channel\n");
+  #endif
   getline(&line, &bytes_number, fp);
   local_data->channel = atoi(&line[8]);
 
   //Encryption key
-#ifdef DEBUG
-printf("getting key\n");
-#endif
+  #ifdef DEBUG
+  printf("getting key\n");
+  #endif
   getline(&line, &bytes_number, fp);
 
   if (!strcmp(&line[15], "on"))
@@ -149,9 +149,9 @@ printf("getting key\n");
   }
 
   //Quality
-#ifdef DEBUG
-printf("getting quality\n");
-#endif
+  #ifdef DEBUG
+  printf("getting quality\n");
+  #endif
   getline(&line, &bytes_number, fp);                               //first split read line into two parts
   line[10] = '\0';
   local_data->quality[0] = (short int)atoi(&line[8]);
@@ -159,13 +159,25 @@ printf("getting quality\n");
 
 
   //Read other two lines, but don't store them
-  getline(&line, &bytes_number, fp);                               //It's neccessary to read those two lines
   getline(&line, &bytes_number, fp);
-                         //so we read correct values in the next loop iteration
-  //free(line);
+  getline(&line, &bytes_number, fp);
   return local_data;
 }
 
+/**Function string_copy**************************************************
+
+  Synopsis           copies string from source to destination with char_nbr
+                     number of characters
+
+  Parameters         destitantion - pointer to destination char array
+                     source - pointer to source char array
+                     char_nbr - numbers of characters to copy
+
+  Return value       none
+
+  SideEffects        ensure that there is enouth space allocated for destination
+
+******************************************************************************/
 void string_copy(char* destination, char* source, char char_nbr)
 {
   for(int i = 0; i < char_nbr; i ++)
@@ -173,6 +185,22 @@ void string_copy(char* destination, char* source, char char_nbr)
     destination[i] = source[i];
   }
 }
+
+/**Function string_compare**************************************************
+
+  Synopsis           copies string from source to destination with char_nbr
+                     number of characters
+
+  Parameters         string1 - pointer to first char array
+                     string2 - pointer to second char array
+                     char_nbr - numbers of characters to comapre
+
+  Return value       [0] - strings are same
+                     [1] - strings differ
+
+  SideEffects        none
+
+******************************************************************************/
 int string_compare(char* string1, char* string2, char char_nbr)
 {
   for(int i = 0; i < char_nbr; i ++)

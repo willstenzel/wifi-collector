@@ -50,19 +50,18 @@
 ******************************************************************************/
 void display_menu()
 {
-        //system("@cls||clear");
-        printf("\n");
-        printf("[1] wificollector_quit\n");
-        printf("[2] wificollector_collect\n");
-        printf("[3] wificollector_show_data_one_network\n");
-        printf("[4] wificollector_select_best\n");
-        printf("[5] wificollector_delete_net\n");
-        printf("[6] wificollector_sort\n");
-        printf("[7] wificollector_export\n");
-        printf("[8] wificollector_import\n");
-        printf("\n");
-        printf("Option: ");
-
+  //system("@cls||clear");
+  printf("\n");
+  printf("[1] wificollector_quit\n");
+  printf("[2] wificollector_collect\n");
+  printf("[3] wificollector_show_data_one_network\n");
+  printf("[4] wificollector_select_best\n");
+  printf("[5] wificollector_delete_net\n");
+  printf("[6] wificollector_sort\n");
+  printf("[7] wificollector_export\n");
+  printf("[8] wificollector_import\n");
+  printf("\n");
+  printf("Option: ");
 }
 
 
