@@ -276,7 +276,7 @@ void wificollector_export()
     return;
   }
   // Ask user to get the name of the file
-  printf("Indicate the name of the file:\n");
+  printf("Indicate the name of the file: ");
   if(scanf("%s", selected_name) == -1)
   {
     clearerr(stdin);
@@ -310,7 +310,7 @@ void wificollector_export()
 
 
   }
-
+  printf("Exported successfully %s\n", selected_name);
   fclose(fd);
   return;
 }
@@ -330,7 +330,7 @@ void wificollector_import()
   char file_name[MAX_FILE_NAME+4];
   char selected_name[MAX_FILE_NAME];
 
-  printf("Indicate the name of the file:\n");
+  printf("Indicate the name of the file: ");
   if(scanf("%s", selected_name) == -1)
   {
     clearerr(stdin);
@@ -392,6 +392,7 @@ void wificollector_import()
       push(local_data);
     }
   }
+  printf("Imported successfully %s\n", selected_name);
   free(local_data);
   fclose(fd);
 }
