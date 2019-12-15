@@ -1,0 +1,3 @@
+To compile the program:
+1. Enter src directory
+2. Type "make"
