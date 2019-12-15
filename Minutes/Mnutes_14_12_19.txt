@@ -1,0 +1,44 @@
+Team meeting held on 14/12/2019 at 14:00 in the cafe
+
+Attending:
+  - Michal Bernacki
+  - Will Stenzel
+  - Tomasz Tatara
+
+
+Moderator: Tomasz Tatara
+Minutes: Michal Bernacki
+
+Agenda:
+ 1.- Work together on robustness and Ctr-D functionality
+ 2.- Check memory organisation with Valgrind
+
+================================================================================
+
+- We encountered some problems with export and import functionality, and
+  discussed together how to solve it
+- Tomek started implementing Ctr-D functionality in main menu, while Michal and
+  Will discussed how to implement it in each of submenus
+- When Tomek was done with Ctr-D in main menu, we all worked on Ctr-D in submenus
+- Tomek noticed the even though Ctr-D works in export and import, binary
+  files with random names are created so we improved robustness of those two
+  functions to prevent it from happening ever again
+- While testing memory with Valgrind, we noticed that some of the memory may be
+  leaked in import function and Will pointed out that we are not closing the
+  file after reading, adding fclose() function solved the problem
+- When Tomek tried to run code on Debian distribution Ctr-D functionality didn't
+  work as expected
+- We decided to split the remaining work and talk tomorrow to wrap up the final
+  version of the project
+
+================================================================================
+
+Action Items:
+
+*  Go through all Minutes and correct them if necessary -> Michal
+*  Write Minutes from last two meetings -> Michal
+*  Solve Ctr-D problem on Debian -> Tomasz
+*  Correct debug mode where necessary -> Tomasz
+*  Add templates where missing -> Will
+*  Add comments where needed -> Will
+*  Fill in the activity sheet -> All

@@ -1,0 +1,28 @@
+Team meeting held on 29/11/2019 at 11:00 in the library
+
+Attending:
+  - Will Stenzel
+  - Tomasz Tatara
+
+
+Moderator: Tomasz Tatara
+Minutes: Will Stenzel
+
+Agenda:
+ 1.- Go over what was wrong in the partial version
+ 2.- Correct the changes and make an appointment with professor to discuss
+     problems encountered while compiling partial version on lab computers
+ 3.- Assign new task
+
+================================================================================
+
+- Tomek suggested what might have caused the problem in the partial version,
+  pointing out to dynamic memory allocation while reading essid and MAC
+- We decided to change essid and MAC to static memory
+- The change was relatively small so we decided to introduce it to professor
+
+================================================================================
+
+Action Items:
+
+*  Go to appointment with professor -> All

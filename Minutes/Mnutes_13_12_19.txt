@@ -1,0 +1,33 @@
+Team meeting held on 13/12/2019 at 17:00 in the Library
+
+Attending:
+  - Michal Bernacki
+  - Will Stenzel
+  - Tomasz Tatara
+
+
+Moderator: Michal Bernacki
+Minutes: Tomasz Tatara
+
+Agenda:
+ 1.- Work together to finish off export and import functionalities
+ 2.- Make the list of thing left to do at the next meeting
+
+================================================================================
+
+- We discussed whether to use dynamic memory allocation for export functionality
+- Finally we decided to focus more on robustness and error free execution, hence
+  to stick with static memory
+- Tomek installed Debian distribution with the greatest similarity to the lab
+  computers and the same gcc version, in order to check recently implemented changes
+- Tomek and Will talked about import function while Michal tried to resolve
+  problems with execution on Mac computers
+- We all worked on export and import robustness
+- Tomek, with others assistance created list of thing left to do before assigning
+ the final version
+
+================================================================================
+
+Action Items:
+
+*  Finish up the thing from left-to-do list -> All

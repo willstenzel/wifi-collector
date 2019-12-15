@@ -1,0 +1,32 @@
+Team meeting held on 20/11/2019 at 17:00 in the cafe
+
+Attending:
+  - Michal Bernacki
+  - Will Stenzel
+  - Tomasz Tatara
+
+
+Moderator: Will Stenzel
+Minutes: Tomasz Tatara
+
+Agenda:
+ 1.- Go over what we worked on since the last meeting
+ 2.- Help each other to resolve encountered problems
+ 4.- Wrap up project for partial version submission
+ 3.- Create new tasks to complete before next meeting
+
+================================================================================
+
+- Tomek explained how to use Valgrind to us and installed Ubuntu on
+  virtual machine to check the behaviour of our program on Linux distribution
+- From now on we run code on Ubuntu, because Mac computers are causing problems
+  with memory organisation
+- Tomek added debug mode
+- Michal created PatrialVersion directory, zipped all files needed for submission,
+  and shared with the rest file ready to upload to Aula Global
+
+================================================================================
+
+Action Items:
+
+*  Upload partial version -> All
