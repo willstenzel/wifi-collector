@@ -1,0 +1,40 @@
+Team meeting held on 15/11/2019 at 13:00 in the Library
+
+Attending:
+  - Michal Bernacki
+  - Will Stenzel
+  - Tomasz Tatara
+
+
+Moderator: Michal Bernacki
+Minutes: Will Stenzel
+
+Agenda:
+ 1.- Go over what we worked on since the last meeting
+ 2.- Create a Makefile that links the files in the project
+ 3.- Create new tasks to complete before next meeting
+
+================================================================================
+
+- Will gave a walkthrough of his code so both team members can understand it
+- Tomasz started to work on created a Makefile because he has the most
+  experience with c
+- Tomasz explained his code for creating the structure and Will asked some
+  questions
+- We discussed whether or not to use an enum or string for the cell moderator
+- Michal and Tomasz chatted how the pieces of their program are going to work
+  together
+- We had a group discussion on what the data that we will need to free and how
+  we are going to free it
+- Michal pushed the templates folder to git repo so we can easily use them in
+  our projects
+
+================================================================================
+
+Action Items:
+
+*  Update our files using the templates provided for the project -> All
+*  Finish up the wificollector_collect functionality now that the basic
+   data structure has been built -> Michal
+*  Work on improving the last task -> Tomasz
+*  Create a function to display a single wifi structure -> Will

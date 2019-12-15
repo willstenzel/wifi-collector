@@ -1,0 +1,49 @@
+This file describes the different modules that we will be using.
+
+1. main
+  - Contains only the main function
+  - Main function calls menu module
+
+2. menu
+  - Displays the menu on the screen
+  - Calls the correct function based on the users input
+
+3. io
+  - Main function used is read_access_point
+  - There are also other helper functions which are called by read_access_point
+  - read_access_point only reads a single access point from a cell
+  - Two functions to handle strings - copy and compare, used instead of strcpy
+    and strcmp
+
+4. display_data
+  - Displays a single access point to the console
+  - It is called by functions from wificollector module which print to the console
+  - There are also some internal functions to help with printing enums
+
+5. wificollector
+  All functionalities for wificollector including:
+  - wificollector_quit
+    - Quits the program and frees the memory
+  - wificollector_collect
+    - Checks how many access points there are in the specified cell and uses
+      read_access_point for each one in the cell
+  - wificollector_delete_net
+    - Ask the user to enter the name of the network and deletes all access points
+      with the specified essid
+  - wificollector_show_data_one_network
+    - Ask the user to enter the name of the network and shows all access points
+      with the specified essid
+  - wificollector_select_best
+    - The function displays the access point with the highest quality
+  - wificollector_import
+    - Writes data currently stored in application to binary file with the name
+      specified by user
+  - wificollector_export
+    - Reads data into application from binary file with the name specified by user
+  - wificollector_sort
+    - Calls the sort_list() function responsible for sorting
+
+
+6. structure_and_list
+  - Deals with creating and managing dynamic memory for the data structure
+  - Retrieves and prints specific data from the dynamic data structure
