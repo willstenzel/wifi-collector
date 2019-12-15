@@ -1,3 +1,11 @@
+
+#include "structure_and_list.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "string.h"
+#include "io.h"
+#include "display_data.h"
+
 /**CFile***********************************************************************
 
   FileName    structure_and_list.c
@@ -26,29 +34,22 @@
 
 ******************************************************************************/
 
-
-
-#include "structure_and_list.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include "string.h"
-#include "io.h"
-#include "display_data.h"
-
 /*---------------------------------------------------------------------------*/
 /* Definition of functions                                                   */
 /*---------------------------------------------------------------------------*/
 
+/**Function list_init**********************************************************
 
-/**Function list_init**********************************************
+  Synopsis           initialize the variable that stores the list head
 
-  Synopsis           initialise list_head with NULL value
+  SideEffects        sets the variable list_head to NULL
 
 ******************************************************************************/
 void list_init(void)
 {
   list_head = NULL;
 }
+
 
 /**Function********************************************************************
 
@@ -103,6 +104,8 @@ wifi_list *get_head(void)
 {
   return list_head;
 }
+
+
 /**Function********************************************************************
 
   Synopsis           returns, with every execution, pointer to next element
@@ -141,14 +144,14 @@ wifi_list *move_head_ptr(wifi_list* local_head)
 {
   return local_head->next;
 }
+
+
 /**Function********************************************************************
 
-  Synopsis           frees all bojects dynamicly located in linked list.
+  Synopsis           Frees all objects dynamicly located in linked list.
                      Has to be called before exiting the program.
 
   Parameters         none
-
-  SideEffects        none
 
 ******************************************************************************/
 void delete_list(void)
@@ -163,6 +166,17 @@ void delete_list(void)
     }
   }
 }
+
+
+/**Function********************************************************************
+
+  Synopsis           Sorts the wifi_list from higest to lowest quality
+
+  Parameters         none
+
+  SideEffects        Mutates the wifi_list data so the list remains sorted
+
+******************************************************************************/
 void sort_list(void)
 {
   wifi_list *curr_pointer;

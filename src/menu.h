@@ -5,7 +5,7 @@
 
   FileName    menu.h
 
-  Synopsis    Contains functions used in the menu.c file
+  Synopsis    Contains all function prototypes used in the menu.c file
 
   Copyright   [Copyright (c) 2012 Carlos III University of Madrid
   All rights reserved.

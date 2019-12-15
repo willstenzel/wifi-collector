@@ -253,9 +253,11 @@ printf("ESSID --> %s\n", essid);
 
 /** Function wificollector_export ******************************************
 
-  Synopsis     Writes a binary file with the currently stored data
+  Synopsis       Writes a binary file with the currently stored data
 
-  SideEffects  Creates a binary file containing all the wifi data
+  Return Value   None
+
+  SideEffects    Creates a binary file containing all the wifi data
 
 ******************************************************************************/
 void wificollector_export() {
@@ -312,12 +314,13 @@ void wificollector_export() {
 }
 
 
-
 /** Function wificollector_import ******************************************
 
-  Synopsis     Reads a binary file with the saved wifi data
+  Synopsis       Reads a binary file with the saved wifi data
 
-  SideEffects  Adds the data from the file into the local memory
+  Return Value   None
+
+  SideEffects    Adds the data from the file into the local memory
 
 ******************************************************************************/
 void wificollector_import()
@@ -390,6 +393,15 @@ void wificollector_import()
     free(local_data);
     fclose(fd);
 }
+
+
+/** Function wificollector_sort ******************************************
+
+  Synopsis       Sort the wifi list from highest to lowest quality
+
+  SideEffects    Mutates the wifi_list data so data scructure becomes sorted
+
+******************************************************************************/
 void wificollector_sort()
 {
   sort_list();

@@ -5,9 +5,10 @@
 
 /**CFile***********************************************************************
 
-  FileName    menu.case
+  FileName    menu.c
 
   Synopsis    Displays the menu to the user and delegates to the right function
+              to perform the correct action
 
   Copyright   [Copyright (c) 2012 Carlos III University of Madrid
   All rights reserved.
@@ -65,8 +66,6 @@ void display_menu()
 }
 
 
-
-
 /**Function handle_menu ******************************************************
 
    Synopsis           Handles User Input for the menu
@@ -96,6 +95,7 @@ void handle_menu()
 #ifdef DEBUG
     printf("char nbr: %d option: %d\n", char_nbr, option);
 #endif
+    // Check if user has typed CNTRL-D
     if (char_nbr == -1)
     {
         printf("PROGRAM QUIT\n");
@@ -109,7 +109,6 @@ void handle_menu()
         printf("Wrong number!\n");
         printf("Please enter an integer input between 1-8\n");
       }
-      // converty to char to integer
       switch (option)
       {
       case 1:

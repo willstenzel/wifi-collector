@@ -3,15 +3,10 @@
 
 /**CHeaderFile*****************************************************************
 
-  FileName    [required]
+  FileName    wifi_collector.h
 
-  Synopsis    [required]
-
-  Description [optional]
-
-  SeeAlso     [optional]
-
-  Author      [optional]
+  Synopsis    Contains functions for the main functionality of the program.
+              Functions defined here are used in the wifi_collector.c file
 
   Copyright   [Copyright (c) 2012 Carlos III University of Madrid
   All rights reserved.
@@ -38,8 +33,6 @@
 /*---------------------------------------------------------------------------*/
 /* Function prototypes                                                       */
 /*---------------------------------------------------------------------------*/
-
-
 
 void wificollector_collect();
 void wificollector_show_data_one_network();

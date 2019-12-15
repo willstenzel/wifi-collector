@@ -7,7 +7,7 @@
 
   FileName    display_data.h
 
-  Synopsis    Contains functions used in the display_data.c file
+  Synopsis    Contains all function prototypes used in the display_data.c file
 
   Copyright   [Copyright (c) 2012 Carlos III University of Madrid
   All rights reserved.
